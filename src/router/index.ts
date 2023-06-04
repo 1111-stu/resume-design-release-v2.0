@@ -1,23 +1,46 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+const Design = () => import('@/view/design/index.vue');
+const Index = () => import('@/view/index/index.vue');
+const Custom = () => import('@/view/custom/index.vue');
+
+const routes: Array<RouteRecordRaw> = [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+        path: '/',
+        name: 'Index',
+        meta: {
+            title: '首页',
+            keepAlive: true,
+            requireLogin: false
+        },
+        component: Index
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+        path: '/design',
+        name: 'Design',
+        meta: {
+            title: '设计',
+            keepAlive: true,
+            requireLogin: true
+        },
+        component: Design
+    },
+    {
+        path: '/custom',
+        name: 'Custom',
+        meta: {
+            title: '自定义',
+            keepAlive: true,
+            requireLogin: true
+        },
+        component: Custom
     }
-  ]
-})
+];
+// const routerHistory = createWebHistory('/');
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+});
+export default router;
 
-export default router
+
