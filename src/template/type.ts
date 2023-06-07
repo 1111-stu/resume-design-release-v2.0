@@ -1,5 +1,5 @@
 export interface ITempList {
-  id: string;
-  name: string;
-  preview: string;
+  id: string
+  name: string
+  preview: string
 }

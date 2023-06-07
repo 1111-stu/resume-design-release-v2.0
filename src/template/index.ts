@@ -1,4 +1,4 @@
-import { ITempList } from './type';
+import { ITempList } from './type'
 const templateList: Array<ITempList> = [
   {
     id: '1',
@@ -35,5 +35,5 @@ const templateList: Array<ITempList> = [
   //   name: 'custom',
   //   preview: 'custom.png'
   // }
-];
-export default templateList;
+]
+export default templateList
