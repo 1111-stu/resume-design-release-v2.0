@@ -1,13 +1,99 @@
 <template>
-  <div>
-    <!-- <h1>我是详细模板简历设计页</h1>   -->
+  <div class="design-box">
+    <!-- 导航栏 -->
     <design-nav></design-nav>
+    <!-- 内容区域 -->
+    <div class="content">
+      <!-- 模块操作区域 -->
+      <div class="left" ref="leftRef">
+        <CScrollbar trigger="hover">
+          <Title show-collapse @unflod-or-collapse="unflodOrCollapse"></Title>
+          <model-list :left-show="leftStaus"></model-list>
+        </CScrollbar>
+      </div>
+
+      <!-- 预览区域 -->
+      <div class="center"></div>
+
+      <!-- 简历数据配置区域 -->
+      <div class="right"></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import ModelList from './components/ModelList.vue';
+import Title from './components/Title.vue'
+import ModelList from './components/ModelList.vue'
 import DesignNav from './components/DesignNav.vue'
+
+import { ref } from 'vue'
+import appStore from '@/store'
+// import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router'
+import { getTemplateJson } from '@/http/api/getTemplateJson'
+import type { IDESIGNJSON } from '@/interface/design'
+import MODEL_DATA_JSON from '@/schema/modelData'
+import { CScrollbar } from 'c-scrollbar' // 滚动条
+
+// const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
+const { changeResumeJsonData } = appStore.useResumeJsonNewStore
+// 获取组件模板的id
+const route = useRoute()
+const { id, name } = route.query
+const resetStoreLocal = async () => {
+  //根据url获取对应模板的本地数据
+  const url = `${location.origin}/json/${name}/template.json`
+  const data: IDESIGNJSON = await getTemplateJson(url)
+  let TEMPLATE_JSON
+  TEMPLATE_JSON = data
+  TEMPLATE_JSON.ID = id as string
+  TEMPLATE_JSON.NAME = name as string
+  TEMPLATE_JSON.COMPONENTS.forEach((item) => {
+    item.data = MODEL_DATA_JSON[item.model]
+  })
+  //修改Store数据
+  changeResumeJsonData(TEMPLATE_JSON)
+}
+resetStoreLocal()
+
+// 展开或关闭左侧模块选择栏
+const leftRef = ref<any>(null)
+const leftStaus = ref<Boolean>(true)
+const unflodOrCollapse = (status: boolean) => {
+  if (status) {
+    leftRef.value.style.width = '300px'
+    setTimeout(() => {
+      leftStaus.value = status
+    }, 100)
+  } else {
+    leftRef.value.style.width = '70px'
+    setTimeout(() => {
+      leftStaus.value = status
+    }, 100)
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.design-box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .content {
+    display: flex;
+    width: 100%;
+
+    .left {
+      width: 300px;
+      background-color: #fff;
+      height: calc(100vh - 50px);
+      overflow: auto;
+      transition: all 0.3s;
+    }
+  }
+}
+</style>

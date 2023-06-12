@@ -13,7 +13,7 @@ import type {
   IWORKEXPERIENCE,
   IWORKSDISPLAY,
   ICUSTOM1
-} from './model';
+} from './model'
 
 // 模块数据结构定义
 interface IMODELDATAJSON {
@@ -31,8 +31,7 @@ interface IMODELDATAJSON {
   | IHOBBIES
   | ISELFEVALUATION
   | IWORKSDISPLAY
-  | ICUSTOM1;
+  | ICUSTOM1
 }
 
 export type { IMODELDATAJSON }
-// export default IMODELDATAJSON;

@@ -1,4 +1,4 @@
-import type { IRESUMEJSON } from '@/interface/resume';
+import type { IRESUMEJSON } from '@/interface/resume'
 
 // 简历模板数据
 const RESUME_JSON: IRESUMEJSON = {
@@ -25,5 +25,5 @@ const RESUME_JSON: IRESUMEJSON = {
     leftThemeColor: '', // 左侧布局时左侧背景色
     rightThemeColor: '' // 右侧布局时右侧背景色
   }
-};
-export default RESUME_JSON;
+}
+export default RESUME_JSON

@@ -1,4 +1,4 @@
-import type { IMODELDATAJSON } from '@/interface/modelData';
+import type { IMODELDATAJSON } from '@/interface/modelData'
 
 const MODEL_DATA_JSON: IMODELDATAJSON = {
   RESUME_TITLE: {
@@ -309,5 +309,5 @@ const MODEL_DATA_JSON: IMODELDATAJSON = {
       name: true
     }
   }
-};
-export default MODEL_DATA_JSON;
+}
+export default MODEL_DATA_JSON

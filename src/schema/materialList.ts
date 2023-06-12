@@ -1,4 +1,4 @@
-import type { IMSTERIALLISTJSON } from '@/interface/material';
+import type { IMSTERIALLISTJSON } from '@/interface/material'
 
 // 组件列表
 export const MATERIAL_JSON: IMSTERIALLISTJSON = {
@@ -1599,4 +1599,4 @@ export const MATERIAL_JSON: IMSTERIALLISTJSON = {
       data: {} // 组件数据
     }
   ]
-};
+}
