@@ -37,9 +37,12 @@ import { CScrollbar } from 'c-scrollbar' // 滚动条
 
 // const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
-// 获取组件模板的id
+
+// 获取组件模板的id、name
 const route = useRoute()
 const { id, name } = route.query
+
+//重置简历数据
 const resetStoreLocal = async () => {
   //根据url获取对应模板的本地数据
   const url = `${location.origin}/json/${name}/template.json`
@@ -54,7 +57,21 @@ const resetStoreLocal = async () => {
   //修改Store数据
   changeResumeJsonData(TEMPLATE_JSON)
 }
-resetStoreLocal()
+
+//进入简历设计页面，数据初始化
+const localDataJson: any = localStorage.getItem('resumeDraft')
+if (localDataJson) {
+  let localDataObj = JSON.parse(localDataJson)
+  if (localDataObj) {
+    //更新模板数据
+    changeResumeJsonData(localDataJson)
+  } else {
+    //使用默认的模板数据
+    resetStoreLocal()
+  }
+} else {
+  resetStoreLocal()
+}
 
 // 展开或关闭左侧模块选择栏
 const leftRef = ref<any>(null)

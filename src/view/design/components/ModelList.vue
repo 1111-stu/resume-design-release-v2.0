@@ -9,7 +9,15 @@
         animation="300"
       >
         <template #item="{ element }">
-          <div class="model-list-item" v-if="element.data.title !== '我的简历'">
+          <div
+            :class="[
+              'model-list-item',
+              { 'collapse-center': !leftShow },
+              { active: appStore.useSelectMaterialStore.cptKeyId === element.keyId }
+            ]"
+            v-if="element.data.title !== '我的简历'"
+            @click="selectModel(element)"
+          >
             <div class="left">
               <div :class="['icon-box', { 'collapse-center': !leftShow }]">
                 <el-tooltip
@@ -51,6 +59,21 @@ defineProps<{
 
 //简历数据
 const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+
+//更新选中的模块数据
+const { updateSelectModel } = appStore.useSelectMaterialStore
+const selectModel = (item: any) => {
+  let optionsName: string = item.cptOptionsName
+  let updateData = {
+    model: item.model,
+    optionsName: optionsName,
+    title: item.data.title,
+    keyId: item.keyId
+  }
+  updateSelectModel(updateData.keyId, updateData.optionsName, updateData.title, updateData.keyId)
+}
+
+//选中模块
 </script>
 
 <style lang="scss" scoped>
@@ -135,11 +158,12 @@ const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
 
       .collapse-center {
         justify-content: center;
+        margin-left: 10px;
       }
+    }
 
-      .active {
-        background-color: rgba(227, 231, 234, 0.6);
-      }
+    .active {
+      background-color: rgba(227, 231, 234, 0.6);
     }
   }
 }

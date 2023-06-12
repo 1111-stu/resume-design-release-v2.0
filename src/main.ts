@@ -10,8 +10,8 @@ import elementIcons from '@/components/SvgIcon/svgicon'
 import SvgIcon from './components/SvgIcon/SvgIcon.vue'
 
 // 注册store
-import { createPinia } from 'pinia';
-import { registerStore } from '@/store';
+import { createPinia } from 'pinia'
+import { registerStore } from '@/store'
 
 //图标
 import '@/assets/iconfont/iconfont.js'

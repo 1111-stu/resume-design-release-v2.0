@@ -1,5 +1,5 @@
-import Request from './index';
-import type { AxiosResponse } from 'axios';
+import Request from './index'
+import type { AxiosResponse } from 'axios'
 const http = new Request({
   // baseURL: 'https://smallpig.site/api',
   timeout: 1000 * 60 * 5,
@@ -8,8 +8,8 @@ const http = new Request({
     requestInterceptors: (config) => config,
     // 响应拦截器
     responseInterceptors: (result: AxiosResponse) => {
-      return result;
+      return result
     }
   }
-});
-export default http;
+})
+export default http

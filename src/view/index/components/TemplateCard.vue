@@ -20,7 +20,7 @@
 import { ref } from 'vue'
 import PreviewImage from '@/components/PreviewImage/PreviewImage.vue'
 import { getAssetsFile } from '@/utils/common'
-import { ITempList } from '@/template/type'
+import type { ITempList } from '@/template/type'
 defineProps<{
   cardData: ITempList
 }>()

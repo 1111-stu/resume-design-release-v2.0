@@ -1,5 +1,5 @@
 // Pinia store基础集成方法
-import type { IAppStore } from '@/store';
+import type { IAppStore } from '@/store'
 
 /**
  * 重构$reset()
@@ -8,14 +8,14 @@ import type { IAppStore } from '@/store';
  */
 export const initResetFun = (appStore: IAppStore) => {
   Object.values(appStore).forEach((item) => {
-    const initState = {} as Record<string, any>;
+    const initState = {} as Record<string, any>
     Object.entries(item.$state).forEach((item) => {
-      initState[item[0]] = item[1];
-    });
+      initState[item[0]] = item[1]
+    })
     item.reset = () => {
       Object.keys(item.$state).forEach((state) => {
-        item.$state[state] = initState[state];
-      });
-    };
-  });
-};
+        item.$state[state] = initState[state]
+      })
+    }
+  })
+}
