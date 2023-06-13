@@ -11,7 +11,7 @@ specifiers:
   '@vue/tsconfig': ^0.4.0
   axios: ^1.4.0
   c-scrollbar: ^1.0.2
-  element-plus: ^2.3.5
+  element-plus: ^2.3.6
   eslint: ^8.39.0
   eslint-config-prettier: ^8.8.0
   eslint-plugin-prettier: ^4.2.1
@@ -23,6 +23,7 @@ specifiers:
   prettier: ^2.8.8
   sass: ^1.62.1
   typescript: ~5.0.4
+  unplugin-element-plus: ^0.7.1
   vite: ^4.3.5
   vue: ^3.3.2
   vue-router: ^4.2.0
@@ -57,6 +58,7 @@ devDependencies:
   prettier: registry.npmmirror.com/prettier/2.8.8
   sass: registry.npmmirror.com/sass/1.62.1
   typescript: registry.npmmirror.com/typescript/5.0.4
+  unplugin-element-plus: registry.npmmirror.com/unplugin-element-plus/0.7.1
   vite: registry.npmmirror.com/vite/4.3.9_kaz2pwe3fkrbosuykbhgr7fqba
   vue-tsc: registry.npmmirror.com/vue-tsc/1.6.5_typescript@5.0.4
 
@@ -471,6 +473,22 @@ packages:
       fastq: registry.npmmirror.com/fastq/1.15.0
     dev: true
 
+  registry.npmmirror.com/@rollup/pluginutils/5.0.2:
+    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@rollup/pluginutils/-/pluginutils-5.0.2.tgz}
+    name: '@rollup/pluginutils'
+    version: 5.0.2
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': registry.npmmirror.com/@types/estree/1.0.1
+      estree-walker: registry.npmmirror.com/estree-walker/2.0.2
+      picomatch: registry.npmmirror.com/picomatch/2.3.1
+    dev: true
+
   registry.npmmirror.com/@rushstack/eslint-patch/1.3.0:
     resolution: {integrity: sha512-IthPJsJR85GhOkp3Hvp8zFOPK5ynKn6STyHa/WZpioK7E1aYDiBzpqQPrngc14DszIUkIrdd3k9Iu0XSzlP/1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@rushstack/eslint-patch/-/eslint-patch-1.3.0.tgz}
     name: '@rushstack/eslint-patch'
@@ -487,6 +505,12 @@ packages:
     resolution: {integrity: sha512-UqdfvuJK0SArA2CxhKWwwAWfnVSXiYe63bVpMutc27vpngCntGUZQETO24pEJ46zU6XM+7SpqYoMgcO3bM11Ew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tsconfig/node18/-/node18-2.0.1.tgz}
     name: '@tsconfig/node18'
     version: 2.0.1
+    dev: true
+
+  registry.npmmirror.com/@types/estree/1.0.1:
+    resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/estree/-/estree-1.0.1.tgz}
+    name: '@types/estree'
+    version: 1.0.1
     dev: true
 
   registry.npmmirror.com/@types/json-schema/7.0.12:
@@ -1490,6 +1514,12 @@ packages:
       typed-array-length: registry.npmmirror.com/typed-array-length/1.0.4
       unbox-primitive: registry.npmmirror.com/unbox-primitive/1.0.2
       which-typed-array: registry.npmmirror.com/which-typed-array/1.1.9
+    dev: true
+
+  registry.npmmirror.com/es-module-lexer/1.3.0:
+    resolution: {integrity: sha512-vZK7T0N2CBmBOixhmjdqx2gWVbFZ4DXZ/NyRMZVlJXPa7CyFS+/a4QQsDGDQy9ZfEzxFuNEsMLeQJnKP2p5/JA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/es-module-lexer/-/es-module-lexer-1.3.0.tgz}
+    name: es-module-lexer
+    version: 1.3.0
     dev: true
 
   registry.npmmirror.com/es-set-tostringtag/2.0.1:
@@ -3550,6 +3580,31 @@ packages:
       which-boxed-primitive: registry.npmmirror.com/which-boxed-primitive/1.0.2
     dev: true
 
+  registry.npmmirror.com/unplugin-element-plus/0.7.1:
+    resolution: {integrity: sha512-qzvPyVUdwVMkWGYHFhVm6hTqmP/juQa8tR+RzY/T1YLEk9o69FGQD8G9fOPzXLeYXJi6MjkIrBye9YUYvLMiKg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-element-plus/-/unplugin-element-plus-0.7.1.tgz}
+    name: unplugin-element-plus
+    version: 0.7.1
+    engines: {node: '>=14.19.0'}
+    dependencies:
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      es-module-lexer: registry.npmmirror.com/es-module-lexer/1.3.0
+      magic-string: registry.npmmirror.com/magic-string/0.30.0
+      unplugin: registry.npmmirror.com/unplugin/1.3.1
+    transitivePeerDependencies:
+      - rollup
+    dev: true
+
+  registry.npmmirror.com/unplugin/1.3.1:
+    resolution: {integrity: sha512-h4uUTIvFBQRxUKS2Wjys6ivoeofGhxzTe2sRWlooyjHXVttcVfV/JiavNd3d4+jty0SVV0dxGw9AkY9MwiaCEw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin/-/unplugin-1.3.1.tgz}
+    name: unplugin
+    version: 1.3.1
+    dependencies:
+      acorn: registry.npmmirror.com/acorn/8.8.2
+      chokidar: registry.npmmirror.com/chokidar/3.5.3
+      webpack-sources: registry.npmmirror.com/webpack-sources/3.2.3
+      webpack-virtual-modules: registry.npmmirror.com/webpack-virtual-modules/0.5.0
+    dev: true
+
   registry.npmmirror.com/uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/uri-js/-/uri-js-4.4.1.tgz}
     name: uri-js
@@ -3707,6 +3762,19 @@ packages:
       sortablejs: registry.npmmirror.com/sortablejs/1.14.0
       vue: registry.npmmirror.com/vue/3.3.4
     dev: false
+
+  registry.npmmirror.com/webpack-sources/3.2.3:
+    resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-sources/-/webpack-sources-3.2.3.tgz}
+    name: webpack-sources
+    version: 3.2.3
+    engines: {node: '>=10.13.0'}
+    dev: true
+
+  registry.npmmirror.com/webpack-virtual-modules/0.5.0:
+    resolution: {integrity: sha512-kyDivFZ7ZM0BVOUteVbDFhlRt7Ah/CSPwJdi8hBpkK7QLumUqdLtVfm/PX/hkcnrvr0i77fO5+TjZ94Pe+C9iw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-virtual-modules/-/webpack-virtual-modules-0.5.0.tgz}
+    name: webpack-virtual-modules
+    version: 0.5.0
+    dev: true
 
   registry.npmmirror.com/which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz}

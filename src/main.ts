@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import '@/style/normalize.css'
 // import component from '@/utils/registerCom';
+import '@/style/global.scss'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 注册所有图标

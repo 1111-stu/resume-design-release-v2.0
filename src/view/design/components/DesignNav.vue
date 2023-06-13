@@ -5,12 +5,22 @@
       <span>化简</span>
     </div>
     <div class="nav-center">
-      <p>
-        {{ title }}
+      <p v-show="!showInput">
+        {{ resumeJsonNewStore.TITLE }}
         <el-icon :size="20" color="#409eff" @click="changeTitle">
           <Edit />
         </el-icon>
       </p>
+      <el-input
+        ref="titleIptRef"
+        v-show="showInput"
+        autofocus
+        v-model="resumeJsonNewStore.TITLE"
+        placeholder="请输入标题"
+        @blur="blurTitle"
+        @keyup.enter="onEnter"
+        style="--el-color-primary: #00c091"
+      ></el-input>
     </div>
     <div class="nav-right">
       <el-tooltip class="box-item" effect="dark" content="返回首页" placement="bottom">
@@ -56,12 +66,25 @@
 </template>
 
 <script setup lang="ts">
+import appStore from '@/store'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-let title: string = ref('我的简历标题')
+
+const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
 
 // 修改简历标题
-const changeTitle = () => {}
+const showInput = ref<boolean>(false)
+const titleIptRef = ref<any>(null)
+const changeTitle = () => {
+  showInput.value = true
+  titleIptRef.value.focus()
+}
+const blurTitle = () => {
+  showInput.value = false
+}
+const onEnter = () => {
+  showInput.value = false
+}
 
 // 返回首页
 let router = useRouter()
@@ -140,34 +163,38 @@ const reset = () => {}
     .el-input {
       width: 200px;
     }
+
+    ::v-deep .el-input__inner {
+      text-align: center;
+    }
+  }
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+
+  .el-button {
+    margin-right: 20px;
+    margin-left: 0;
   }
 
-  .nav-right {
+  .icon-box {
+    width: 35px;
+    height: 35px;
+    background-color: #74a274;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 10px;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.3s;
 
-    .el-button {
-      margin-right: 20px;
-      margin-left: 0;
-    }
-
-    .icon-box {
-      width: 35px;
-      height: 35px;
-      background-color: #74a274;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-right: 15px;
-      transition: all 0.3s;
-
-      &:hover {
-        background-color: rgba(0, 192, 145, 0.8);
-      }
+    &:hover {
+      background-color: rgba(0, 192, 145, 0.8);
     }
   }
 }
