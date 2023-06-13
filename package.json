@@ -13,10 +13,17 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.0.2",
+    "@codemirror/lang-json": "^6.0.0",
+    "@codemirror/theme-one-dark": "^6.0.0",
     "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.4.0",
     "c-scrollbar": "^1.0.2",
     "element-plus": "^2.3.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^1.4.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "pinia": "^2.0.36",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0",
@@ -48,5 +55,8 @@
     "*.{vue,js}": [
       "npm run lint"
     ]
+  },
+  "peerDependencies": {
+    "codemirror": "6.x"
   }
 }

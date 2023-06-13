@@ -19,5 +19,5 @@ export default defineConfig({
     //     additionalData: '@use "@/style/global.scss" as *;' //关键
     //   }
     // }
-  },
+  }
 })

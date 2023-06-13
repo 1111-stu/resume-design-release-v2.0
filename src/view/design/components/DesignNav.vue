@@ -68,9 +68,13 @@
 <script setup lang="ts">
 import appStore from '@/store'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
+import { useRouter, useRoute } from 'vue-router'
+// 简历数据
 const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+
+//路由是否自定义模板
+const route = useRoute()
+const { name } = route.query // 模板id和模板名称
 
 // 修改简历标题
 const showInput = ref<boolean>(false)
@@ -87,7 +91,7 @@ const onEnter = () => {
 }
 
 // 返回首页
-let router = useRouter()
+const router = useRouter()
 const toHome = () => {
   router.push({
     path: '/'
