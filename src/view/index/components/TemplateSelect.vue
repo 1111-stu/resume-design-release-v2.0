@@ -20,7 +20,7 @@
 import IntroduceTitle from './IntroduceTitle.vue'
 import TemplateCard from './TemplateCard.vue'
 import templateList from '@/template/index'
-import { ITempList } from '@/template/type'
+import type { ITempList } from '@/template/type'
 import { useRouter } from 'vue-router'
 
 // 跳转到对应的模板设计页面

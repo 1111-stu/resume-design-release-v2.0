@@ -85,7 +85,7 @@ if (resumeJsonNewStore.LAYOUT === 'leftRight') {
     min-width: 820px;
     min-height: 300px;
     width: 820px;
-    min-height: 1160px;
+    height: 1160px;
     background-color: #fff;
     box-sizing: border-box;
     position: relative;
