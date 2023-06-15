@@ -13,7 +13,12 @@
       </div>
 
       <!-- 预览区域 -->
-      <div class="center"></div>
+      <div class="center">
+        <div class="resume-view">
+          <!-- <Custom></Custom> -->
+          <component is="custom"></component>
+        </div>
+      </div>
 
       <!-- 简历数据配置区域 -->
       <div class="right"></div>
@@ -25,6 +30,7 @@
 import Title from './components/Title.vue'
 import ModelList from './components/ModelList.vue'
 import DesignNav from './components/DesignNav.vue'
+// import Custom from '@/template/custom/index.vue'
 
 import { ref } from 'vue'
 import appStore from '@/store'
@@ -90,7 +96,6 @@ const unflodOrCollapse = (status: boolean) => {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .design-box {
   display: flex;
@@ -110,6 +115,33 @@ const unflodOrCollapse = (status: boolean) => {
       height: calc(100vh - 50px);
       overflow: auto;
       transition: all 0.3s;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex: 1;
+      height: calc(100vh - 50px);
+      overflow: auto;
+
+      .resume-view {
+        background: white;
+        width: 820px;
+        min-height: 1160px;
+        margin: 30px 0;
+        display: table;
+        position: relative;
+      }
+    }
+
+    .right {
+      width: 355px;
+      background-color: #fff;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 50px);
     }
   }
 }

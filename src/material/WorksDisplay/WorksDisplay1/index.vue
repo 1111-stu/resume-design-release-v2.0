@@ -51,7 +51,7 @@ defineProps<{
       }
 
       a {
-        font-size: $primary-text-font-size;
+        font-size: 20px;
         margin-top: 5px;
 
         &:hover {

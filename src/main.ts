@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import '@/style/normalize.css'
-// import component from '@/utils/registerCom';
+import component from '@/utils/registerCom';
 import '@/style/global.scss'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -24,6 +24,7 @@ app.use(createPinia())
 registerStore()
 
 app.use(router)
+app.use(component)
 app.use(ElementPlus)
 app.use(elementIcons)
 app.component('SvgIcon', SvgIcon)

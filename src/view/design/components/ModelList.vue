@@ -15,7 +15,6 @@
               { 'collapse-center': !leftShow },
               { active: appStore.useSelectMaterialStore.cptKeyId === element.keyId }
             ]"
-            v-if="element.data.title !== '我的简历'"
             @click="selectModel(element)"
           >
             <div class="left">

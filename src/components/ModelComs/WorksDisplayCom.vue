@@ -14,8 +14,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { IWORKSDISPLAY } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { IWORKSDISPLAY } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 const props = defineProps<{
   modelData: IWORKSDISPLAY
   modelStyle: IMODELSTYLE // 模块样式
@@ -33,6 +33,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -42,15 +43,18 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .works-display-list {
     margin-top: 25px;
     display: flex;
     flex-direction: column;
+
     li {
       display: flex;
       flex-direction: column;
       list-style: none;
       align-items: flex-start;
+
       h1 {
         font-size: v-bind('modelStyle.textFontSize');
         color: v-bind('modelStyle.textColor');
@@ -58,13 +62,16 @@ const { left } = useGetLineLeft(props.modelStyle)
         letter-spacing: 2px;
         margin: 0;
       }
+
       a {
-        font-size: $primary-text-font-size;
+        font-size: 20px;
         margin-top: 5px;
+
         &:hover {
           color: #00c091;
         }
       }
+
       &:not(:last-child) {
         margin-bottom: 15px;
       }
