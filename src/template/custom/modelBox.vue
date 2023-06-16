@@ -4,6 +4,7 @@
     v-if="item.show"
     @mouseover="hendleOver"
     @mouseleave="hendleLeave"
+    :ref="(el) => setRefItem(el, item.keyId)"
   >
     <div class="edit-box" v-if="hoverId === item.keyId">
       <el-tooltip content="复制当前模块" placement="bottom" effect="dark">
@@ -33,8 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref, watch, type ComponentPublicInstance } from 'vue'
 import type { IMATERIALITEM } from '@/interface/material'
+import appStore from '@/store'
+import { storeToRefs } from 'pinia'
+// import { constant } from 'lodash';
 const props = defineProps<{
   item: IMATERIALITEM
   components: any
@@ -50,6 +54,34 @@ const hendleOver = () => {
 const hendleLeave = () => {
   hoverId.value = ''
 }
+
+// 模块ref
+const modelObj = reactive<any>({})
+const setRefItem = (el: ComponentPublicInstance | null | Element, keyId: string) => {
+  if (el) {
+    modelObj[keyId] = {
+      el: el,
+      id: keyId
+    }
+  }
+}
+// 锚点定位
+const { cptKeyId } = storeToRefs(appStore.useSelectMaterialStore)
+watch(
+  cptKeyId,
+  (newVal, oldVal) => {
+    // 判断是否选中复选框
+    if (oldVal && modelObj[oldVal]) {
+      modelObj[oldVal].el.style.borderColor = 'transparent'
+    }
+    //如果选中模块就滚动模块到当前视图
+    if (newVal && modelObj[newVal]) {
+      modelObj[newVal].el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      modelObj[newVal].el.style.borderColor = '#7ec97e'
+    }
+  },
+  { deep: true }
+)
 
 // 复制模块
 

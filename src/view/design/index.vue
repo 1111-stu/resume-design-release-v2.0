@@ -47,7 +47,6 @@ const { changeResumeJsonData } = appStore.useResumeJsonNewStore
 // 获取组件模板的id、name
 const route = useRoute()
 const { id, name } = route.query
-// console.log("路由数据:", id, name)
 //重置简历数据
 const resetStoreLocal = async () => {
   //根据url获取对应模板的本地数据
