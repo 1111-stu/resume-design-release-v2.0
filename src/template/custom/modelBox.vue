@@ -5,15 +5,16 @@
     @mouseover="hendleOver"
     @mouseleave="hendleLeave"
     :ref="(el) => setRefItem(el, item.keyId)"
+    @click="selectModel"
   >
     <div class="edit-box" v-if="hoverId === item.keyId">
       <el-tooltip content="复制当前模块" placement="bottom" effect="dark">
-        <div class="copy" @click.stop="addModel">
+        <div class="copy" @click.stop="addModel(item, item.keyId)">
           <svg-icon icon-name="icon-jia" class-name="icon" color="#fff" size="16px"></svg-icon>
         </div>
       </el-tooltip>
       <el-tooltip content="删除当前模块" placement="bottom" effect="dark">
-        <div class="delete" @click.stop="useDeleteModel">
+        <div class="delete" @click.stop="deleteModel(item.keyId)">
           <svg-icon
             icon-name="icon-shanchu"
             class-name="icon icon-shanchu"
@@ -38,14 +39,21 @@ import { reactive, ref, watch, type ComponentPublicInstance } from 'vue'
 import type { IMATERIALITEM } from '@/interface/material'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
-// import { constant } from 'lodash';
+import { cloneDeep } from 'lodash'
+import getModelIndex from '@/hooks/material/useGetModelIndex'
+
 const props = defineProps<{
   item: IMATERIALITEM
   components: any
 }>()
 
-const hoverId = ref<string>('')
+const emits = defineEmits(['left-right-copyModel', 'left-right-delete-model'])
+
+//导入简历数据
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
+
 // 鼠标移入
+const hoverId = ref<string>('')
 const hendleOver = () => {
   hoverId.value = props.item.keyId
 }
@@ -83,12 +91,56 @@ watch(
   { deep: true }
 )
 
-// 复制模块
+// 点击选择模块
+const { updateSelectModel, resetSelectModel } = appStore.useSelectMaterialStore
+const selectModel = () => {
+  console.log('keyId', props.item.keyId)
+  // 更新store
+  updateSelectModel(
+    props.item.model,
+    props.item.cptOptionsName,
+    props.item.cptTitle,
+    props.item.keyId
+  )
+}
 
-const addModel = () => {}
+// 复制模块
+const addModel = (item: IMATERIALITEM, keyId: string) => {
+  if (resumeJsonNewStore.value.LAYOUT === 'classical') {
+    classicalCopyModel(item, keyId)
+  } else {
+    emits('left-right-copyModel', item)
+  }
+}
 
 // 删除模块
-const useDeleteModel = () => {}
+const deleteModel = (keyId: string) => {
+  if (resumeJsonNewStore.value.LAYOUT === 'classical') {
+    classicalDeleteModel(keyId)
+  } else {
+    emits('left-right-delete-model', keyId)
+  }
+  //重置当前选中模块的数据
+  resetSelectModel()
+}
+
+// 传统布局-模块复制
+const classicalCopyModel = (modelinfo: IMATERIALITEM, modelId: string) => {
+  //拷贝选中模块的数据
+  let copyModel = cloneDeep(modelinfo)
+  //获取插入位置
+  const index = getModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
+  // 拼接更新
+  resumeJsonNewStore.value.COMPONENTS.splice(index, 0, copyModel)
+}
+
+//传统布局-模块删除
+const classicalDeleteModel = (modelId: string) => {
+  //获取位置
+  const index = getModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
+  // 删除模块
+  resumeJsonNewStore.value.COMPONENTS.splice(index, 1)
+}
 </script>
 
 <style lang="scss" scoped>

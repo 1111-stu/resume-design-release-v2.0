@@ -34,7 +34,12 @@
         >
           <template #item="{ element }">
             <div class="list-group-item">
-              <model-box :components="MaterialComponents" :item="element"></model-box>
+              <model-box
+                :components="MaterialComponents"
+                :item="element"
+                @left-right-copy-model="leftCopyModel"
+                @left-right-delete-model="leftDeleteModel"
+              ></model-box>
             </div>
           </template>
         </draggable>
@@ -50,7 +55,12 @@
         >
           <template #item="{ element }">
             <div class="list-group-item">
-              <model-box :components="MaterialComponents" :item="element"></model-box>
+              <model-box
+                :components="MaterialComponents"
+                :item="element"
+                @left-right-copy-model="rightCopyModel"
+                @left-right-delete-model="rightDeleteModel"
+              ></model-box>
             </div>
           </template>
         </draggable>
@@ -60,22 +70,72 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import type { IMATERIALITEM } from '@/interface/material'
 
 import draggable from 'vuedraggable'
 import appStore from '@/store'
 import modelBox from './modelBox.vue'
 import MaterialComponents from '@/utils/registerMaterialCom' // 所有物料组件
+import getModelIndex from '@/hooks/material/useGetModelIndex'
+import { cloneDeep } from 'lodash'
 
 defineOptions({ name: 'custom' })
-const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
 
 //左右两列布局
-const leftList = ref<any>([])
-const rightList = ref<any>([])
-if (resumeJsonNewStore.LAYOUT === 'leftRight') {
-  leftList.value = resumeJsonNewStore.COMPONENTS.filter((item) => item.layout === 'left') //左侧列表
-  rightList.value = resumeJsonNewStore.COMPONENTS.filter((item) => item.layout === 'right') //右侧列表
+const leftList = ref<IMATERIALITEM[]>([])
+const rightList = ref<IMATERIALITEM[]>([])
+if (resumeJsonNewStore.value.LAYOUT === 'leftRight') {
+  leftList.value = resumeJsonNewStore.value.COMPONENTS.filter((item) => item.layout === 'left') //左侧列表
+  rightList.value = resumeJsonNewStore.value.COMPONENTS.filter((item) => item.layout === 'right') //右侧列表
+}
+
+watch(
+  leftList,
+  () => {
+    leftList.value.forEach((item: IMATERIALITEM) => {
+      item.layout = 'left'
+    })
+    resumeJsonNewStore.value.COMPONENTS = leftList.value.concat(rightList.value)
+  },
+  { deep: true }
+)
+
+watch(
+  rightList,
+  () => {
+    rightList.value.forEach((item: IMATERIALITEM) => {
+      item.layout = 'right'
+    })
+    resumeJsonNewStore.value.COMPONENTS = leftList.value.concat(rightList.value)
+  },
+  { deep: true }
+)
+
+// 复制左侧模块
+const leftCopyModel = (modeItem: IMATERIALITEM) => {
+  const index = getModelIndex(leftList.value, modeItem.keyId)
+  const copyModel = cloneDeep(modeItem)
+  leftList.value.splice(index, 0, copyModel)
+}
+// 删除左侧模块
+const leftDeleteModel = (modelId: string) => {
+  const index = getModelIndex(leftList.value, modelId)
+  leftList.value.splice(index, 1)
+}
+//复制右侧模块
+const rightCopyModel = (modeItem: IMATERIALITEM) => {
+  const index = getModelIndex(leftList.value, modeItem.keyId)
+  const copyModel = cloneDeep(modeItem)
+  rightList.value.splice(index, 0, copyModel)
+}
+
+// 删除右侧模块
+const rightDeleteModel = (modelId: string) => {
+  const index = getModelIndex(leftList.value, modelId)
+  rightList.value.splice(index, 1)
 }
 </script>
 

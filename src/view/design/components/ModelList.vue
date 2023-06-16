@@ -51,13 +51,13 @@
 <script setup lang="ts">
 import appStore from '@/store'
 import draggable from 'vuedraggable'
-
+import { storeToRefs } from 'pinia'
 defineProps<{
   leftShow: Boolean
 }>()
 
 //简历数据
-const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
 
 //更新选中的模块数据
 const { updateSelectModel } = appStore.useSelectMaterialStore
