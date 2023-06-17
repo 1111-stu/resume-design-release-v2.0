@@ -9,12 +9,12 @@
   >
     <div class="edit-box" v-if="hoverId === item.keyId">
       <el-tooltip content="复制当前模块" placement="bottom" effect="dark">
-        <div class="copy" @click.stop="addModel(item, item.keyId)">
+        <div class="copy" @click.stop="addModel(item)">
           <svg-icon icon-name="icon-jia" class-name="icon" color="#fff" size="16px"></svg-icon>
         </div>
       </el-tooltip>
       <el-tooltip content="删除当前模块" placement="bottom" effect="dark">
-        <div class="delete" @click.stop="deleteModel(item.keyId)">
+        <div class="delete" @click.stop="deleteModel(item)">
           <svg-icon
             icon-name="icon-shanchu"
             class-name="icon icon-shanchu"
@@ -40,14 +40,14 @@ import type { IMATERIALITEM } from '@/interface/material'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { cloneDeep } from 'lodash'
-import getModelIndex from '@/hooks/material/useGetModelIndex'
+import { useGetModelIndex } from '@/hooks/useGetModelIndex'
 
 const props = defineProps<{
   item: IMATERIALITEM
   components: any
 }>()
 
-const emits = defineEmits(['left-right-copyModel', 'left-right-delete-model'])
+const emits = defineEmits(['left-right-copy-model', 'left-right-delete-model'])
 
 //导入简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
@@ -94,7 +94,6 @@ watch(
 // 点击选择模块
 const { updateSelectModel, resetSelectModel } = appStore.useSelectMaterialStore
 const selectModel = () => {
-  console.log('keyId', props.item.keyId)
   // 更新store
   updateSelectModel(
     props.item.model,
@@ -105,20 +104,22 @@ const selectModel = () => {
 }
 
 // 复制模块
-const addModel = (item: IMATERIALITEM, keyId: string) => {
+const addModel = (item: IMATERIALITEM) => {
   if (resumeJsonNewStore.value.LAYOUT === 'classical') {
-    classicalCopyModel(item, keyId)
+    classicalCopyModel(item, item.keyId)
   } else {
-    emits('left-right-copyModel', item)
+    //left-right布局是分成两个list去渲染，分发出去custom组件处理
+    emits('left-right-copy-model', item)
   }
 }
 
 // 删除模块
-const deleteModel = (keyId: string) => {
+const deleteModel = (item: IMATERIALITEM) => {
   if (resumeJsonNewStore.value.LAYOUT === 'classical') {
-    classicalDeleteModel(keyId)
+    classicalDeleteModel(item.keyId)
   } else {
-    emits('left-right-delete-model', keyId)
+    //left-right布局是分成两个list去渲染，分发出去custom组件处理
+    emits('left-right-delete-model', item)
   }
   //重置当前选中模块的数据
   resetSelectModel()
@@ -129,7 +130,7 @@ const classicalCopyModel = (modelinfo: IMATERIALITEM, modelId: string) => {
   //拷贝选中模块的数据
   let copyModel = cloneDeep(modelinfo)
   //获取插入位置
-  const index = getModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
+  const index = useGetModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
   // 拼接更新
   resumeJsonNewStore.value.COMPONENTS.splice(index, 0, copyModel)
 }
@@ -137,7 +138,7 @@ const classicalCopyModel = (modelinfo: IMATERIALITEM, modelId: string) => {
 //传统布局-模块删除
 const classicalDeleteModel = (modelId: string) => {
   //获取位置
-  const index = getModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
+  const index = useGetModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
   // 删除模块
   resumeJsonNewStore.value.COMPONENTS.splice(index, 1)
 }

@@ -78,7 +78,8 @@ import draggable from 'vuedraggable'
 import appStore from '@/store'
 import modelBox from './modelBox.vue'
 import MaterialComponents from '@/utils/registerMaterialCom' // 所有物料组件
-import getModelIndex from '@/hooks/material/useGetModelIndex'
+import { useGetModelIndex } from '@/hooks/useGetModelIndex'
+import { useDeleteModel } from '@/hooks/useDeleteModel'
 import { cloneDeep } from 'lodash'
 
 defineOptions({ name: 'custom' })
@@ -116,26 +117,34 @@ watch(
 
 // 复制左侧模块
 const leftCopyModel = (modeItem: IMATERIALITEM) => {
-  const index = getModelIndex(leftList.value, modeItem.keyId)
+  const index = useGetModelIndex(leftList.value, modeItem.keyId)
+  // 获取复制的模块数据
   const copyModel = cloneDeep(modeItem)
+  // 拼接更新
   leftList.value.splice(index, 0, copyModel)
 }
 // 删除左侧模块
-const leftDeleteModel = (modelId: string) => {
-  const index = getModelIndex(leftList.value, modelId)
-  leftList.value.splice(index, 1)
+const leftDeleteModel = (modelItem: IMATERIALITEM) => {
+  // 获取index
+  const index = useGetModelIndex(leftList.value, modelItem.keyId)
+  // 删除模块
+  useDeleteModel(leftList.value, modelItem, index)
 }
 //复制右侧模块
 const rightCopyModel = (modeItem: IMATERIALITEM) => {
-  const index = getModelIndex(leftList.value, modeItem.keyId)
+  const index = useGetModelIndex(rightList.value, modeItem.keyId)
+  // 获取复制的模块数据
   const copyModel = cloneDeep(modeItem)
+  //拼接更新
   rightList.value.splice(index, 0, copyModel)
 }
 
 // 删除右侧模块
-const rightDeleteModel = (modelId: string) => {
-  const index = getModelIndex(leftList.value, modelId)
-  rightList.value.splice(index, 1)
+const rightDeleteModel = (modelItem: IMATERIALITEM) => {
+  // 获取index
+  const index = useGetModelIndex(rightList.value, modelItem.keyId)
+  // 删除模块
+  useDeleteModel(rightList.value, modelItem, index)
 }
 </script>
 
