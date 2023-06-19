@@ -20,8 +20,12 @@
         </div>
       </div>
 
-      <!-- 简历数据配置区域 -->
-      <div class="right"></div>
+      <!-- 模块数据数据配置区域 -->
+      <div class="right">
+        <!-- 模块标题 -->
+        <Title :title="cptTitle"></Title>
+        <component :is="optionsComponents[cptOptionsName]"></component>
+      </div>
     </div>
   </div>
 </template>
@@ -30,19 +34,22 @@
 import Title from './components/Title.vue'
 import ModelList from './components/ModelList.vue'
 import DesignNav from './components/DesignNav.vue'
-// import Custom from '@/template/custom/index.vue'
 
 import { ref } from 'vue'
 import appStore from '@/store'
-// import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
+import { CScrollbar } from 'c-scrollbar' // 滚动条
+
 import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'
 import MODEL_DATA_JSON from '@/schema/modelData'
-import { CScrollbar } from 'c-scrollbar' // 滚动条
+import optionsComponents from '@/utils/registerMaterialOptionsCom'
 
-// const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
+const { cptTitle } = storeToRefs(appStore.useSelectMaterialStore)
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
+const { cptOptionsName } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
+// const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
 
 // 获取组件模板的id、name
 const route = useRoute()
