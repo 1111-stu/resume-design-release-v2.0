@@ -24,7 +24,20 @@
       <div class="right">
         <!-- 模块标题 -->
         <Title :title="cptTitle"></Title>
-        <component :is="optionsComponents[cptOptionsName]"></component>
+        <c-scrollbar
+          trigger="hover"
+          :h-thumb-style="{
+            'background-color': 'rgba(0,0,0,0.4)'
+          }"
+        >
+          <component
+            :is="optionsComponents[cptOptionsName]"
+            v-if="cptName"
+            :key="cptKeyId"
+          ></component>
+          <!-- 全局主题样式设置 -->
+          <GlobalStyleOptions v-else></GlobalStyleOptions>
+        </c-scrollbar>
       </div>
     </div>
   </div>
@@ -45,10 +58,11 @@ import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'
 import MODEL_DATA_JSON from '@/schema/modelData'
 import optionsComponents from '@/utils/registerMaterialOptionsCom'
+import GlobalStyleOptions from '@/options/GlobalStyleOptions.vue'
 
-const { cptTitle } = storeToRefs(appStore.useSelectMaterialStore)
+const { cptTitle, cptName } = storeToRefs(appStore.useSelectMaterialStore)
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
-const { cptOptionsName } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
+const { cptOptionsName, cptKeyId } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
 // const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
 
 // 获取组件模板的id、name
@@ -103,6 +117,9 @@ const unflodOrCollapse = (status: boolean) => {
   }
 }
 </script>
+<style lang="scss">
+@import '../../style/options.scss';
+</style>
 <style lang="scss" scoped>
 .design-box {
   display: flex;

@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 /**
  * @description 返回学历选项列表
@@ -13,8 +13,8 @@ export const useDegreeList = () => {
     '硕士',
     '非全硕士',
     '其它'
-  ]);
+  ])
   return {
     degreeList
-  };
-};
+  }
+}

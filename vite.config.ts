@@ -10,13 +10,14 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),
-  AutoImport({
-    resolvers: [ElementPlusResolver({ importStyle: "sass" })],
-  }),
-  Components({
-    resolvers: [ElementPlusResolver({ importStyle: "sass" })],
-  })
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
+    })
   ],
   css: {
     preprocessorOptions: {
@@ -29,5 +30,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
+  }
 })

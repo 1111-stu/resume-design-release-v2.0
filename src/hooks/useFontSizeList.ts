@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 /**
  * @description 返回字体大小列表
@@ -31,5 +31,5 @@ export const useFontSizeList = () => {
     '56px',
     '58px',
     '60px'
-  ]);
-};
+  ])
+}

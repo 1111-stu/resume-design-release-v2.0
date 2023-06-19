@@ -18,9 +18,8 @@ import { registerStore } from '@/store'
 import '@/assets/iconfont/iconfont.js'
 
 // 颜色选择组件
-import ColorPicker from 'colorpicker-v3'  // 注册组件
+import ColorPicker from 'colorpicker-v3' // 注册组件
 import 'colorpicker-v3/style.css' // 引入样式文件
-
 
 const app = createApp(App)
 
