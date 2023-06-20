@@ -154,12 +154,13 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import appStore from '@/store'
+import { storeToRefs } from 'pinia'
 import { pxTonumber } from '@/utils/common'
 import { useFontSizeList } from '@/hooks/useFontSizeList'
 import ColorPickerCustomVue from '@/components/ColorPicker/ColorPickerCustom.vue'
 import type { IMATERIALITEM } from '@/interface/material'
 
-const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
 
 // 表单数据
 const form = reactive({
@@ -169,28 +170,28 @@ const form = reactive({
 // 左侧宽度改变
 const handleLeftWidth = (value: number) => {
   form.rightWidth = 820 - value
-  resumeJsonNewStore.GLOBAL_STYLE.leftWidth = `${form.leftWidth}px`
-  resumeJsonNewStore.GLOBAL_STYLE.rightWidth = `${820 - value}px`
+  resumeJsonNewStore.value.GLOBAL_STYLE.leftWidth = `${form.leftWidth}px`
+  resumeJsonNewStore.value.GLOBAL_STYLE.rightWidth = `${820 - value}px`
 }
 
 // 右侧宽度改变
 const handleRightWidth = (value: number) => {
   form.leftWidth = 820 - value
-  resumeJsonNewStore.GLOBAL_STYLE.rightWidth = `${form.rightWidth}px`
-  resumeJsonNewStore.GLOBAL_STYLE.leftWidth = `${820 - value}px`
+  resumeJsonNewStore.value.GLOBAL_STYLE.rightWidth = `${form.rightWidth}px`
+  resumeJsonNewStore.value.GLOBAL_STYLE.leftWidth = `${820 - value}px`
 }
 
 // 改变主题色
 const changeThemeColor = (item: { rgb: string; hex: string }) => {
   // 改变一级标题颜色
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.themeColor = item.hex
   })
-  console.log('改变主题色后的COMPONENTS', resumeJsonNewStore.COMPONENTS)
+  console.log('改变主题色后的COMPONENTS', resumeJsonNewStore.value.COMPONENTS)
 }
 // 改变一级字体大小
 const changeFirstTitleFontSize = (value: string) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.firstTitleFontSize = value
   })
 }
@@ -203,101 +204,100 @@ const fontWeightList = reactive<Array<number>>([100, 200, 300, 400, 500, 600, 70
 
 // 二级标题字体大小发生变化时
 const secondTitleFontSizeChange = (value: string) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.titleFontSize = value
   })
 }
 
 // 正文字体大小发生变化
 const textFontSizeChange = (value: string) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.titleFontSize = value
   })
 }
 
 // 二级标题颜色改变
 const secondTitleColorChange = (item: { hex: string; rgba: string }) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.titleColor = item.hex
   })
 }
 
 // 正文字体颜色发生改变
 const textColorChange = (item: { hex: string; rgba: string }) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.textColor = item.hex
   })
 }
 
 // 二级标题字体粗细
 const secondTitleWeightChange = (value: number) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.titleFontWeight = value
   })
 }
 
 // 正文字体粗细
 const textFontWeight = (value: number) => {
-  resumeJsonNewStore.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
+  resumeJsonNewStore.value.COMPONENTS.forEach((cptItem: IMATERIALITEM) => {
     cptItem.style.textFontWeight = value
   })
 }
 
 // 上外边距
-const defaultMtop: number = pxTonumber(resumeJsonNewStore.GLOBAL_STYLE.modelMarginTop)
+const defaultMtop: number = pxTonumber(resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginTop)
 const mTop = ref<number>(defaultMtop)
 const handleChange = (value: number): void => {
-  if (resumeJsonNewStore.GLOBAL_STYLE) {
-    resumeJsonNewStore.GLOBAL_STYLE.modelMarginTop = value + 'px'
+  if (resumeJsonNewStore.value.GLOBAL_STYLE) {
+    resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginTop = value + 'px'
   }
-  resumeJsonNewStore.COMPONENTS.forEach((item) => {
-    item.style.mTop = resumeJsonNewStore.GLOBAL_STYLE.modelMarginTop
+  resumeJsonNewStore.value.COMPONENTS.forEach((item) => {
+    item.style.mTop = resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginTop
   })
 }
 // 下外边距
-const defaultMbottom: number = pxTonumber(resumeJsonNewStore.GLOBAL_STYLE.modelMarginBottom)
+const defaultMbottom: number = pxTonumber(resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginBottom)
 const mBottom = ref<number>(defaultMbottom)
 const handleChangeMBottom = (value: number): void => {
-  if (resumeJsonNewStore.GLOBAL_STYLE) {
-    resumeJsonNewStore.GLOBAL_STYLE.modelMarginBottom = value + 'px'
+  if (resumeJsonNewStore.value.GLOBAL_STYLE) {
+    resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginBottom = value + 'px'
   }
-  resumeJsonNewStore.COMPONENTS.forEach((item) => {
-    item.style.mBottom = resumeJsonNewStore.GLOBAL_STYLE.modelMarginBottom
+  resumeJsonNewStore.value.COMPONENTS.forEach((item) => {
+    item.style.mBottom = resumeJsonNewStore.value.GLOBAL_STYLE.modelMarginBottom
   })
 }
-
 // 上内边距
-const defaultPTop: number = pxTonumber(resumeJsonNewStore.GLOBAL_STYLE.pTop)
+const defaultPTop: number = pxTonumber(resumeJsonNewStore.value.GLOBAL_STYLE.pTop)
 const pTop = ref<number>(defaultPTop)
 const handleChangePTop = (value: number): void => {
-  if (resumeJsonNewStore.GLOBAL_STYLE) {
-    resumeJsonNewStore.GLOBAL_STYLE.pTop = value + 'px'
+  if (resumeJsonNewStore.value.GLOBAL_STYLE) {
+    resumeJsonNewStore.value.GLOBAL_STYLE.pTop = value + 'px'
   }
-  resumeJsonNewStore.COMPONENTS.forEach((item) => {
-    item.style.pTop = resumeJsonNewStore.GLOBAL_STYLE.pTop
+  resumeJsonNewStore.value.COMPONENTS.forEach((item) => {
+    item.style.pTop = resumeJsonNewStore.value.GLOBAL_STYLE.pTop
   })
 }
 // 下边距
-const defaultPBottom: number = pxTonumber(resumeJsonNewStore.GLOBAL_STYLE.pBottom)
+const defaultPBottom: number = pxTonumber(resumeJsonNewStore.value.GLOBAL_STYLE.pBottom)
 const pBottom = ref<number>(defaultPBottom)
 const handleChangePBottom = (value: number): void => {
-  if (resumeJsonNewStore.GLOBAL_STYLE) {
-    resumeJsonNewStore.GLOBAL_STYLE.pBottom = value + 'px'
+  if (resumeJsonNewStore.value.GLOBAL_STYLE) {
+    resumeJsonNewStore.value.GLOBAL_STYLE.pBottom = value + 'px'
   }
-  resumeJsonNewStore.COMPONENTS.forEach((item) => {
-    item.style.pBottom = resumeJsonNewStore.GLOBAL_STYLE.pBottom
+  resumeJsonNewStore.value.COMPONENTS.forEach((item) => {
+    item.style.pBottom = resumeJsonNewStore.value.GLOBAL_STYLE.pBottom
   })
 }
 
 // 左右内边距
-const defaultPLeftRight: number = pxTonumber(resumeJsonNewStore.GLOBAL_STYLE.pLeftRight)
+const defaultPLeftRight: number = pxTonumber(resumeJsonNewStore.value.GLOBAL_STYLE.pLeftRight)
 const pLeftRight = ref<number>(defaultPLeftRight)
 const handleChangePLeftRight = (value: number): void => {
-  if (resumeJsonNewStore.GLOBAL_STYLE) {
-    resumeJsonNewStore.GLOBAL_STYLE.pLeftRight = value + 'px'
+  if (resumeJsonNewStore.value.GLOBAL_STYLE) {
+    resumeJsonNewStore.value.GLOBAL_STYLE.pLeftRight = value + 'px'
   }
-  resumeJsonNewStore.COMPONENTS.forEach((item) => {
-    item.style.pLeftRight = resumeJsonNewStore.GLOBAL_STYLE.pLeftRight
+  resumeJsonNewStore.value.COMPONENTS.forEach((item) => {
+    item.style.pLeftRight = resumeJsonNewStore.value.GLOBAL_STYLE.pLeftRight
   })
 }
 </script>

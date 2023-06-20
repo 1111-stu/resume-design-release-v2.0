@@ -27,6 +27,13 @@
     margin-left: 10px;
   }
 }
+.el-form-item__label{
+  font-size:13px
+}
+.el-input__inner{
+  height: 25px;
+  line-height: 25px;
+}
 
 // 颜色选择面板
 .zs-color-picker-panel__visible {
