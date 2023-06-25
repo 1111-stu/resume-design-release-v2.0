@@ -6,7 +6,9 @@
     <ProjectIntroduce
       @online-make="scrollToMake"
       @custom-template="scrollToCustom"
-    ></ProjectIntroduce>
+      @ai-helper="toChatPage"
+    >
+    </ProjectIntroduce>
     <!-- 模板选择 -->
     <Template-select ref="onlineMakeRef"></Template-select>
     <!-- 自定义模板 -->
@@ -43,6 +45,7 @@ import TemplateSelect from './components/TemplateSelect.vue'
 import CustomTemplate from './components/CustomTemplate.vue'
 import FooterCom from '@/components/FooterCom/FooterCom.vue'
 import { throttle } from 'lodash'
+import { useRouter } from 'vue-router'
 
 // 监听元素滚动
 onMounted(() => {
@@ -80,6 +83,12 @@ const scrollToMake = () => {
 const customTemplateRef = ref<any>(null)
 const scrollToCustom = () => {
   customTemplateRef.value.$el.scrollIntoView({ behavior: 'smooth' })
+}
+
+//点击AI助手，跳转到聊天页面
+const router = useRouter()
+const toChatPage = () => {
+  router.push('/chat')
 }
 </script>
 

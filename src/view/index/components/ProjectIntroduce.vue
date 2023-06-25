@@ -7,6 +7,7 @@
       <div class="more-panel">
         <div @click="onlineMake" class="button">在线制作</div>
         <div @click="customTemplate" class="button">自定义模板</div>
+        <div @click="AiHelper" class="button ai-helper">AI助手</div>
       </div>
     </div>
     <div class="right">
@@ -16,13 +17,16 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['onlineMake', 'customTemplate'])
+const emit = defineEmits(['onlineMake', 'customTemplate', 'AiHelper'])
 
 const onlineMake = () => {
   emit('onlineMake')
 }
 const customTemplate = () => {
   emit('customTemplate')
+}
+const AiHelper = () => {
+  emit('AiHelper')
 }
 </script>
 
@@ -56,11 +60,10 @@ const customTemplate = () => {
 
     .more-panel {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 420px;
       margin-top: 40px;
-
-      & :nth-child(1) {
-        margin-right: 30px;
-      }
 
       .button {
         width: 120px;

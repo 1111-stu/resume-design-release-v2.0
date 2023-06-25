@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 const Design = () => import('@/view/design/index.vue')
 const Index = () => import('@/view/index/index.vue')
 const Custom = () => import('@/view/custom/index.vue')
+const Chat = () => import('@/view/chat/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,7 +35,18 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true
     },
     component: Custom
-  }
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    meta: {
+      title: '简历助手',
+      keepAlive: true,
+      requireLogin: true
+    },
+    component: Chat
+  },
+
 ]
 // const routerHistory = createWebHistory('/');
 const router = createRouter({

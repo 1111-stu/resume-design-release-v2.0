@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import type { IMATERIALITEM } from '@/interface/material'
 
@@ -83,6 +83,9 @@ import { useDeleteModel } from '@/hooks/useDeleteModel'
 import { cloneDeep } from 'lodash'
 
 defineOptions({ name: 'custom' })
+const emits = defineEmits(['changeHeight'])
+
+// 简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
 
 //左右两列布局
@@ -146,6 +149,21 @@ const rightDeleteModel = (modelItem: IMATERIALITEM) => {
   // 删除模块
   useDeleteModel(rightList.value, modelItem, index)
 }
+
+//监听简历高度变化
+const customContentRef = ref<any>(null)
+const changeHeight = () => {
+  const resizeObserver: ResizeObserver | null = new ResizeObserver(async (entries) => {
+    for (const entry of entries) {
+      let height = (entry.target as HTMLElement).offsetHeight
+      emits('changeHeight', height)
+    }
+  })
+  resizeObserver.observe(customContentRef.value)
+}
+onMounted(() => {
+  changeHeight()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -154,7 +172,6 @@ const rightDeleteModel = (modelItem: IMATERIALITEM) => {
     min-width: 820px;
     min-height: 300px;
     width: 820px;
-    height: 1160px;
     background-color: #fff;
     box-sizing: border-box;
     position: relative;

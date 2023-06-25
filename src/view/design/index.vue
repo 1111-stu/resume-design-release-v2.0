@@ -14,9 +14,15 @@
 
       <!-- 预览区域 -->
       <div class="center">
-        <div class="resume-view">
-          <!-- <Custom></Custom> -->
-          <component is="custom"></component>
+        <div class="resume-view" ref="htmlPdf">
+          <!-- 简历模块 -->
+          <div ref="htmlContentPdf">
+            <component is="custom" @changeHeight="contentChangeHeight"></component>
+          </div>
+          <!-- 分页分割线 -->
+          <template v-if="linesNumber > 0">
+            <div></div>
+          </template>
         </div>
       </div>
 
@@ -115,6 +121,14 @@ const unflodOrCollapse = (status: boolean) => {
       leftStaus.value = status
     }, 100)
   }
+}
+
+// 简历模板高度发生改变
+const linesNumber = ref<number>(0)
+const contentChangeHeight = (height: number) => {
+  linesNumber.value = Math.ceil(height / 1160)
+  // htmlPdf.value.style.height = 1160 * linesNumber.value + 'px'; // 整个简历的高度
+  // htmlContentPdf.value.style.height = htmlPdf.value.style.height;
 }
 </script>
 <style lang="scss">

@@ -3,9 +3,6 @@ import App from './App.vue'
 import router from './router'
 import '@/style/normalize.css'
 import component from '@/utils/registerCom'
-// import '@/style/global.scss'
-// import ElementPlus from 'element-plus'
-// import 'element-plus/dist/index.css'
 // 注册所有图标
 import elementIcons from '@/components/SvgIcon/svgicon'
 import SvgIcon from './components/SvgIcon/SvgIcon.vue'
@@ -29,7 +26,6 @@ registerStore()
 
 app.use(router)
 app.use(component)
-// app.use(ElementPlus)
 app.use(elementIcons)
 app.use(ColorPicker)
 app.component('SvgIcon', SvgIcon)
