@@ -21,7 +21,17 @@
           </div>
           <!-- 分页分割线 -->
           <template v-if="linesNumber > 0">
-            <div></div>
+            <!-- 根据index，动态设置分割线距离顶部高度 -->
+            <div
+              v-for="(item, index) in linesNumber"
+              :ref="(el) => setLinesRef(el, index)"
+              :style="{ top: `${1128 + 1132 * index}px` }"
+              :key="index"
+              class="lines"
+            >
+              <p class="tips">如果分割线遮挡内容，请通过调整模块上下边距以显示内容！</p>
+              <p class="page">{{ index + 1 }}/{{ linesNumber }}</p>
+            </div>
           </template>
         </div>
       </div>
@@ -123,12 +133,25 @@ const unflodOrCollapse = (status: boolean) => {
   }
 }
 
+// 最后一条分割线出现在底部
+const linesRef = ref<HTMLElement[]>([])
+const setLinesRef = (el: any, index: number) => {
+  if (el) {
+    if (linesNumber.value === index + 1) {
+      el.style.top = linesNumber.value * 1160 + 'px'
+    }
+    linesRef.value[index] = el
+  }
+}
+
 // 简历模板高度发生改变
+const htmlPdf = ref<any>(null)
+const htmlContentPdf = ref<any>(null)
 const linesNumber = ref<number>(0)
 const contentChangeHeight = (height: number) => {
   linesNumber.value = Math.ceil(height / 1160)
-  // htmlPdf.value.style.height = 1160 * linesNumber.value + 'px'; // 整个简历的高度
-  // htmlContentPdf.value.style.height = htmlPdf.value.style.height;
+  htmlPdf.value.style.height = 1160 * linesNumber.value + 'px' // 整个简历的高度
+  htmlContentPdf.value.style.height = htmlPdf.value.style.height
 }
 </script>
 <style lang="scss">
@@ -170,6 +193,35 @@ const contentChangeHeight = (height: number) => {
         margin: 30px 0;
         display: table;
         position: relative;
+      }
+
+      .lines {
+        z-index: 10;
+        width: 820px;
+        height: 24px;
+        background: #f3f3f3 url(@/assets/images/paging_bg.png) center top no-repeat;
+        user-select: none;
+        pointer-events: none;
+        position: absolute;
+        display: flex;
+        align-items: center;
+
+        .tips {
+          font-size: 9px;
+          color: #c7c7c7;
+        }
+
+        .page {
+          font-size: 9px;
+          color: #999999;
+        }
+
+        .page {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
       }
     }
 

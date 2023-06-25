@@ -45,8 +45,7 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true
     },
     component: Chat
-  },
-
+  }
 ]
 // const routerHistory = createWebHistory('/');
 const router = createRouter({

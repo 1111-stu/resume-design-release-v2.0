@@ -13,22 +13,6 @@
 import bot from '@/assets/images/bot.svg'
 import user from '@/assets/images/user.svg'
 defineProps<{ isAi: boolean; value: FormDataEntryValue; id?: string }>()
-
-// 加载动画
-// let loadInterval: any;
-// function loader(element: any) {
-//     element.textContent = ''
-
-//     loadInterval = setInterval(() => {
-//         // Update the text content of the loading indicator
-//         element.textContent += '.';
-
-//         // If the loading indicator has reached three dots, reset it
-//         if (element.textContent === '....') {
-//             element.textContent = '';
-//         }
-//     }, 300);
-// }
 </script>
 
 <style lang="scss" scoped>

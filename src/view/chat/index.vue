@@ -22,7 +22,7 @@ const form = ref<any>(null)
 const chatContainer = ref<any>(null)
 
 //流式响应AI应答文本
-function typeText(randerDataList: any, text: any) {
+const typeText = (randerDataList: any, text: any) => {
   let index = 0
 
   let interval = setInterval(() => {
@@ -71,7 +71,7 @@ const handleSubmit = async (e: any) => {
 
   // 滚动到底部
   scrollToBottom()
-  // loader(messageDiv)
+  loader(randerList, uniqueId)
 
   const response = await fetch('http://localhost:5000', {
     method: 'POST',
@@ -82,11 +82,9 @@ const handleSubmit = async (e: any) => {
       prompt: data.get('prompt')
     })
   })
-
-  // clearInterval(loadInterval)
-
   if (response.ok) {
-    randerList.push({ isAi: true, value: '', id: uniqueId })
+    clearInterval(loadInterval)
+    // randerList.push({ isAi: true, value: '', id: uniqueId })
     const data = await response.json()
     const parsedData = data.bot.trim() //修减尾部多余的空格 /'\n'
     typeText(randerList, parsedData)
@@ -95,6 +93,17 @@ const handleSubmit = async (e: any) => {
     randerList.push({ isAi: true, value: 'Something went wrong"', id: uniqueId })
     alert(err)
   }
+}
+// 加载动画
+let loadInterval: any
+const loader = (randerDataList: any, uniqueId: string) => {
+  randerDataList.push({ isAi: true, value: '', id: uniqueId })
+  loadInterval = setInterval(() => {
+    randerDataList[randerDataList.length - 1].value += '.'
+    if (randerDataList[randerDataList.length - 1].value === '....') {
+      randerDataList[randerDataList.length - 1].value = ''
+    }
+  }, 300)
 }
 
 //自动滚动到底部
