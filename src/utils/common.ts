@@ -1,4 +1,5 @@
 import moment from 'moment' // 日期处理
+import appStore from '@/store'
 // 获取assets静态资源
 export const getAssetsFile = (url: string) => {
   return new URL(`../assets/images/${url}`, import.meta.url).href
@@ -55,3 +56,22 @@ export const formatDate = (dataArray: Array<string> | string): string => {
     return moment(new Date(dataArray)).format('YYYY.MM').split('-').join('.')
   }
 }
+// 开启全局loading
+export const openGlobalLoading = () => {
+  const { changeLoadingStatus } = appStore.useLoadingStore
+  changeLoadingStatus(true)
+}
+
+// 关闭全局loading
+export const closeGlobalLoading = () => {
+  const { changeLoadingStatus } = appStore.useLoadingStore;
+  changeLoadingStatus(false);
+}
+
+// 先开启等待层，然后指定时间关闭等待层
+export const openAndCloseLoadingByTime = (time: number) => {
+  openGlobalLoading();
+  setTimeout(() => {
+    closeGlobalLoading();
+  }, time);
+};

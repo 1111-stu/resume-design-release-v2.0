@@ -34,6 +34,7 @@ declare module 'vue' {
     HobbiesCom: typeof import('./src/components/ModelComs/HobbiesCom.vue')['default']
     InternshipExperienceCom: typeof import('./src/components/ModelComs/InternshipExperienceCom.vue')['default']
     JobIntentionCom: typeof import('./src/components/ModelComs/JobIntentionCom.vue')['default']
+    LoadingCom: typeof import('./src/components/Loading/LoadingCom.vue')['default']
     NavBar: typeof import('./src/components/NavBar/NavBar.vue')['default']
     PreviewImage: typeof import('./src/components/PreviewImage/PreviewImage.vue')['default']
     ProjectExperienceCom: typeof import('./src/components/ModelComs/ProjectExperienceCom.vue')['default']

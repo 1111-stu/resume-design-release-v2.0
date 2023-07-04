@@ -64,7 +64,7 @@ import Title from './components/Title.vue'
 import ModelList from './components/ModelList.vue'
 import DesignNav from './components/DesignNav.vue'
 
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -75,6 +75,7 @@ import type { IDESIGNJSON } from '@/interface/design'
 import MODEL_DATA_JSON from '@/schema/modelData'
 import optionsComponents from '@/utils/registerMaterialOptionsCom'
 import downLoadPDF from '@/utils/downLoadPDF'
+import { closeGlobalLoading } from '@/utils/common'
 
 import GlobalStyleOptions from '@/options/GlobalStyleOptions.vue'
 
@@ -82,6 +83,11 @@ const { cptTitle, cptName } = storeToRefs(appStore.useSelectMaterialStore)
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
 const { cptOptionsName, cptKeyId } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore) // store里的模板数据
+
+//节点渲染完成，关闭全局等待层
+onMounted(() => {
+  closeGlobalLoading()
+})
 
 // 获取组件模板的id、name
 const route = useRoute()

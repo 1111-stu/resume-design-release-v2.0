@@ -27,10 +27,10 @@ export default defineConfig({
           esModule: true,
           resolveStyle: (name: string) => {
             return `element-plus/theme-chalk/${name}.css`
-          },
-        },
+          }
+        }
       ]
-    }),
+    })
   ],
   css: {
     preprocessorOptions: {
