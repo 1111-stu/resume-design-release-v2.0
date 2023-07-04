@@ -1,7 +1,7 @@
 <template>
   <div class="design-box">
     <!-- 导航栏 -->
-    <design-nav></design-nav>
+    <design-nav @generate-report="generateReport"></design-nav>
     <!-- 内容区域 -->
     <div class="content">
       <!-- 模块操作区域 -->
@@ -64,7 +64,7 @@ import Title from './components/Title.vue'
 import ModelList from './components/ModelList.vue'
 import DesignNav from './components/DesignNav.vue'
 
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -74,12 +74,14 @@ import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'
 import MODEL_DATA_JSON from '@/schema/modelData'
 import optionsComponents from '@/utils/registerMaterialOptionsCom'
+import downLoadPDF from '@/utils/downLoadPDF'
+
 import GlobalStyleOptions from '@/options/GlobalStyleOptions.vue'
 
 const { cptTitle, cptName } = storeToRefs(appStore.useSelectMaterialStore)
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
 const { cptOptionsName, cptKeyId } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
-// const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore) // store里的模板数据
 
 // 获取组件模板的id、name
 const route = useRoute()
@@ -104,16 +106,29 @@ const resetStoreLocal = async () => {
 //进入简历设计页面，数据初始化
 const localDataJson: any = localStorage.getItem('resumeDraft')
 if (localDataJson) {
-  let localDataObj = JSON.parse(localDataJson)
+  let localDataObj = JSON.parse(localDataJson).id //根据id获取对应模板的本地数据
   if (localDataObj) {
     //更新模板数据
     changeResumeJsonData(localDataJson)
+    console.log(resumeJsonNewStore.value)
   } else {
     //使用默认的模板数据
     resetStoreLocal()
   }
 } else {
   resetStoreLocal()
+}
+
+//生成PDF
+const { resetSelectModel } = appStore.useSelectMaterialStore
+const generateReport = async () => {
+  let temp = linesNumber.value
+  linesNumber.value = 0
+  resetSelectModel() // 重置选中模块
+  await nextTick()
+  downLoadPDF(htmlPdf.value, resumeJsonNewStore.value.TITLE, false, () => {
+    linesNumber.value = temp
+  })
 }
 
 // 展开或关闭左侧模块选择栏

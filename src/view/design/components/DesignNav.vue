@@ -6,6 +6,7 @@
     </div>
     <div class="nav-center">
       <p v-show="!showInput">
+        <span class="draft-tips">{{ draftTips }}</span>
         {{ resumeJsonNewStore.TITLE }}
         <el-icon :size="20" color="#409eff" @click="changeTitle">
           <Edit />
@@ -67,10 +68,16 @@
 
 <script setup lang="ts">
 import appStore from '@/store'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import moment from 'moment'
+import { debounce } from 'lodash'
+
 // 简历数据
-const { resumeJsonNewStore } = appStore.useResumeJsonNewStore
+const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
+
+const emits = defineEmits(['exportJSON', 'generateReport', 'importJSON', 'reset'])
 
 //路由是否自定义模板
 const route = useRoute()
@@ -98,20 +105,63 @@ const toHome = () => {
   })
 }
 
-// 保存草稿
-const saveDraft = () => {}
+// 保存草稿数据到本地
+const draftTips = ref<string>('')
+const saveDraft = () => {
+  draftToLocal()
+  ElMessage({
+    message: '保存草稿成功!',
+    type: 'success',
+    center: true
+  })
+}
+
+const draftToLocal = () => {
+  // 获取简历模板的id
+  const key: string = resumeJsonNewStore.value.ID
+  // 要保存的数据
+  let saveData: { [key: string]: any } = {}
+  const localDataJson: any = localStorage.getItem('resumeDraft')
+  if (localDataJson) {
+    saveData = JSON.parse(localDataJson)
+    saveData[key] = resumeJsonNewStore.value
+  } else {
+    saveData[key] = resumeJsonNewStore.value
+  }
+  localStorage.setItem('resumeDraft', JSON.stringify(saveData))
+  const date: string = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  draftTips.value = `已自动保存草稿${date}`
+}
+
+//监听简历数据，自动保存简历数据草稿
+const debounceHandle: any = debounce(draftToLocal, 1000)
+watch(
+  resumeJsonNewStore,
+  () => {
+    debounceHandle()
+  },
+  { deep: true }
+)
 
 // 导出为PDF
-const generateReport = () => {}
+const generateReport = () => {
+  emits('generateReport')
+}
 
 //导出为json数据
-const exportJSON = () => {}
+const exportJSON = () => {
+  emits('exportJSON')
+}
 
 //导入json数据
-const importJSON = () => {}
+const importJSON = () => {
+  emits('importJSON')
+}
 
 //重置所有设置
-const reset = () => {}
+const reset = () => {
+  emits('reset')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -152,6 +202,15 @@ const reset = () => {}
     justify-content: center;
     align-items: center;
     position: relative;
+
+    .draft-tips {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      font-size: 10px;
+      color: #999999;
+    }
 
     p {
       display: flex;
