@@ -36,8 +36,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { IJOBINTENTION } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { IJOBINTENTION } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 const props = defineProps<{
   modelData: IJOBINTENTION
   modelStyle: IMODELSTYLE // 模块样式
@@ -55,6 +55,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -64,10 +65,12 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   ul {
     display: flex;
     margin-top: 25px;
     justify-content: space-between;
+
     li {
       list-style: none;
       font-size: v-bind('modelStyle.textFontSize');
@@ -76,6 +79,7 @@ const { left } = useGetLineLeft(props.modelStyle)
       letter-spacing: 2px;
       display: flex;
       align-items: center;
+
       .icon {
         margin-right: 8px;
         font-size: 17px;

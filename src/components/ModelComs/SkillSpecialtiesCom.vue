@@ -22,8 +22,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { ISKILLSPECIALTIES } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { ISKILLSPECIALTIES } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 const props = defineProps<{
   modelData: ISKILLSPECIALTIES
   modelStyle: IMODELSTYLE // 模块样式
@@ -41,6 +41,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -50,27 +51,33 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   ul {
     display: flex;
     flex-wrap: wrap;
+
     .left,
     .right {
       flex: 40%;
       margin-top: 25px;
+
       li {
         letter-spacing: 2px;
         font-size: v-bind('modelStyle.textFontSize');
         color: v-bind('modelStyle.textColor');
         font-weight: v-bind('modelStyle.textFontWeight');
         line-height: 1.5;
+
         &:not(:last-child) {
           margin-bottom: 10px;
         }
       }
     }
+
     .left {
       padding: 0 20px;
     }
+
     .right {
       padding: 0 0 0 10px;
     }

@@ -29,8 +29,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { IWORKEXPERIENCE } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { IWORKEXPERIENCE } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 import { formatDate } from '@/utils/common'
 const props = defineProps<{
   modelData: IWORKEXPERIENCE
@@ -49,6 +49,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -58,18 +59,23 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .work-experience-list {
     margin-top: 25px;
+
     .list {
       display: flex;
       flex-direction: column;
+
       &:not(:last-child) {
         margin-bottom: 25px;
       }
+
       ul {
         display: flex;
         justify-content: space-between;
         margin-bottom: 12px;
+
         .list-title {
           list-style: none;
           font-size: v-bind('modelStyle.titleFontSize');
@@ -79,8 +85,10 @@ const { left } = useGetLineLeft(props.modelStyle)
           text-align: justify;
         }
       }
+
       .job-content {
         display: flex;
+
         .left {
           width: 20%;
           letter-spacing: 2px;
@@ -88,11 +96,14 @@ const { left } = useGetLineLeft(props.modelStyle)
           color: v-bind('modelStyle.titleColor');
           font-weight: v-bind('modelStyle.titleFontWeight');
         }
+
         .content-list {
           flex: 1;
+
           ul {
             display: flex;
             flex-direction: column;
+
             li {
               letter-spacing: 2px;
               text-align: justify;
@@ -100,6 +111,7 @@ const { left } = useGetLineLeft(props.modelStyle)
               color: v-bind('modelStyle.textColor');
               font-weight: v-bind('modelStyle.textFontWeight');
               line-height: 1.5;
+
               &:not(:last-child) {
                 margin-bottom: 6px;
                 text-align: justify;

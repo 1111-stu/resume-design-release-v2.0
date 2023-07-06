@@ -50,8 +50,8 @@ export const numberToText = (value: number) => {
 
 // 生成uuid
 export const getUuid = (): string => {
-  return uuid.v4();
-};
+  return uuid.v4()
+}
 
 // 时间格式转化：['2015-5', '2019-6'] -> 2015.05 - 2019.06
 export const formatDate = (dataArray: Array<string> | string): string => {
