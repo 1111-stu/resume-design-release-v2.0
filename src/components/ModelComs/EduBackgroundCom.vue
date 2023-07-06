@@ -28,8 +28,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { IEDUBACKGROUND } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { IEDUBACKGROUND } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 import { formatDate } from '@/utils/common'
 const props = defineProps<{
   modelData: IEDUBACKGROUND
@@ -48,6 +48,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -57,6 +58,7 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .edu-list {
     display: flex;
     width: 100%;
@@ -69,6 +71,7 @@ const { left } = useGetLineLeft(props.modelStyle)
       align-items: center;
       width: 100%;
       margin-top: 20px;
+
       .date-school-box {
         width: 100%;
         display: flex;
@@ -79,6 +82,7 @@ const { left } = useGetLineLeft(props.modelStyle)
         letter-spacing: 2px;
         margin-bottom: 5px;
       }
+
       .special,
       .majorCourse {
         width: 100%;
@@ -90,6 +94,7 @@ const { left } = useGetLineLeft(props.modelStyle)
         text-align: justify;
         font-family: '微软雅黑';
       }
+
       .special {
         margin-bottom: 10px;
       }

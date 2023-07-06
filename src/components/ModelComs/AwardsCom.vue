@@ -18,8 +18,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { IAWARDS } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { IAWARDS } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 import { formatDate } from '@/utils/common'
 const props = defineProps<{
   modelData: IAWARDS
@@ -38,6 +38,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -47,6 +48,7 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .awards-list {
     display: flex;
     width: 100%;
@@ -57,6 +59,7 @@ const { left } = useGetLineLeft(props.modelStyle)
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       li {
         list-style: none;
         font-size: v-bind('modelStyle.textFontSize');
@@ -64,6 +67,7 @@ const { left } = useGetLineLeft(props.modelStyle)
         font-weight: v-bind('modelStyle.textFontWeight');
         letter-spacing: 2px;
       }
+
       &:not(:last-child) {
         margin-bottom: 20px;
       }

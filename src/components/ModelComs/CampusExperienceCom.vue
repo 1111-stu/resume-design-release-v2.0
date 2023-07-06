@@ -22,8 +22,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { ICAMPUSEXPERIENCE } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { ICAMPUSEXPERIENCE } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 import { formatDate } from '@/utils/common'
 const props = defineProps<{
   modelData: ICAMPUSEXPERIENCE
@@ -41,6 +41,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -50,18 +51,23 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .campue-experience-list {
     margin-top: 25px;
+
     .list {
       display: flex;
       flex-direction: column;
+
       &:not(:last-child) {
         margin-bottom: 25px;
       }
+
       ul {
         display: flex;
         justify-content: space-between;
         margin-bottom: 12px;
+
         li {
           list-style: none;
           font-size: v-bind('modelStyle.titleFontSize');
@@ -70,6 +76,7 @@ const { left } = useGetLineLeft(props.modelStyle)
           letter-spacing: 2px;
         }
       }
+
       p {
         letter-spacing: 2px;
         font-size: v-bind('modelStyle.textFontSize');

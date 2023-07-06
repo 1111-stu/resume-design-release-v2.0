@@ -11,8 +11,8 @@
 </template>
 <script setup lang="ts">
 import useGetLineLeft from '@/hooks/material/useTemplate3LeftLine'
-import { ISELFEVALUATION } from '@/interface/model'
-import IMODELSTYLE from '@/interface/modelStyle'
+import type { ISELFEVALUATION } from '@/interface/model'
+import type { IMODELSTYLE } from '@/interface/modelStyle'
 const props = defineProps<{
   modelData: ISELFEVALUATION
   modelStyle: IMODELSTYLE // 模块样式
@@ -30,6 +30,7 @@ const { left } = useGetLineLeft(props.modelStyle)
   margin-top: v-bind('modelStyle.mTop');
   box-sizing: border-box;
   position: relative;
+
   &::before {
     content: '';
     position: absolute;
@@ -39,9 +40,11 @@ const { left } = useGetLineLeft(props.modelStyle)
     left: v-bind('left');
     top: 5px;
   }
+
   .self-eavluation-content {
     display: flex;
     margin-top: 25px;
+
     p {
       letter-spacing: 2px;
       font-size: v-bind('modelStyle.textFontSize');
