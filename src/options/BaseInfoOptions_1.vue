@@ -74,7 +74,7 @@ let activeName = ref('style')
  */
 // 头像设置
 const imageUrl = ref(modelItem.data.avatar)
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile: any) => {
   if (rawFile.type !== 'image/jpeg') {
     ElMessage.error('只支持jpg格式的图片')
     return false

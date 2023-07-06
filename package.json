@@ -34,6 +34,9 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
+    "@types/axios": "^0.14.0",
+    "@types/jspdf": "^2.0.0",
+    "@types/lodash": "^4.14.195",
     "@types/node": "^18.16.8",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/eslint-config-prettier": "^7.1.0",

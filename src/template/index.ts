@@ -1,4 +1,4 @@
-import { ITempList } from './type'
+import type { ITempList } from './type'
 const templateList: Array<ITempList> = [
   {
     id: '1',
