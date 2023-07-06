@@ -8,6 +8,7 @@
     </div>
     <form ref="form" @submit="handleSubmit">
       <textarea name="prompt" rows="1" cols="1" placeholder="Ask AiHelper..."></textarea>
+      <button class="clear" type="button" @click="clearRenderList">Clear</button>
       <button type="submit"><img src="@/assets/images/send.svg" alt="send" /></button>
     </form>
   </div>
@@ -51,7 +52,7 @@ interface RanderNode {
   value: FormDataEntryValue
   id?: string
 }
-const randerList = reactive<RanderNode[]>([])
+let randerList = reactive<RanderNode[]>([])
 
 // 提交表单
 const handleSubmit = async (e: any) => {
@@ -84,7 +85,7 @@ const handleSubmit = async (e: any) => {
   })
   if (response.ok) {
     clearInterval(loadInterval)
-    // randerList.push({ isAi: true, value: '', id: uniqueId })
+    randerList[randerList.length - 1].value = ''
     const data = await response.json()
     const parsedData = data.bot.trim() //修减尾部多余的空格 /'\n'
     typeText(randerList, parsedData)
@@ -109,6 +110,14 @@ const loader = (randerDataList: any, uniqueId: string) => {
 //自动滚动到底部
 const scrollToBottom = () => {
   chatContainer.value.scrollTop = chatContainer.value.scrollHeight
+}
+
+//清除记录
+const clearRenderList = () => {
+  console.log('clear')
+  // randerList = []
+  randerList.splice(0, randerList.length)
+  console.log(randerList)
 }
 </script>
 <style lang="scss" scoped>
@@ -176,6 +185,15 @@ button {
   border: 0;
   cursor: pointer;
   background: transparent;
+}
+
+.clear {
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
 form img {

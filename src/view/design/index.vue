@@ -1,19 +1,19 @@
 <template>
   <div class="design-box">
     <!-- 导航栏 -->
-    <design-nav @generate-report="generateReport"></design-nav>
+    <design-nav @generate-report="generateReport" @reset="reset"></design-nav>
     <!-- 内容区域 -->
     <div class="content">
       <!-- 模块操作区域 -->
       <div class="left" ref="leftRef">
         <CScrollbar trigger="hover">
           <Title show-collapse @unflod-or-collapse="unflodOrCollapse"></Title>
-          <model-list :left-show="leftStaus"></model-list>
+          <model-list :left-show="leftStaus" :key="refreshUuid"></model-list>
         </CScrollbar>
       </div>
 
       <!-- 预览区域 -->
-      <div class="center">
+      <div class="center" :key="refreshUuid">
         <div class="resume-view" ref="htmlPdf">
           <!-- 简历模块 -->
           <div ref="htmlContentPdf">
@@ -37,7 +37,7 @@
       </div>
 
       <!-- 模块数据数据配置区域 -->
-      <div class="right">
+      <div class="right" :key="refreshUuid">
         <!-- 模块标题 -->
         <Title :title="cptTitle"></Title>
         <c-scrollbar
@@ -69,6 +69,7 @@ import appStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { CScrollbar } from 'c-scrollbar' // 滚动条
+import { cloneDeep } from 'lodash'
 
 import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'
@@ -81,11 +82,15 @@ import GlobalStyleOptions from '@/options/GlobalStyleOptions.vue'
 
 const { cptTitle, cptName } = storeToRefs(appStore.useSelectMaterialStore)
 const { changeResumeJsonData } = appStore.useResumeJsonNewStore
+const { refreshUuid } = storeToRefs(appStore.useUuidStore)
+const { setUuid } = appStore.useUuidStore
 const { cptOptionsName, cptKeyId } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore) // store里的模板数据
 
 //节点渲染完成，关闭全局等待层
-onMounted(() => {
+onMounted(async () => {
+  console.log('refreshUuid.value', refreshUuid.value)
+  await nextTick()
   closeGlobalLoading()
 })
 
@@ -93,36 +98,71 @@ onMounted(() => {
 const route = useRoute()
 const { id, name } = route.query
 
-//重置简历数据
+//获取本地数据,初始化store里面的简历数据
 const resetStoreLocal = async () => {
   //根据url获取对应模板的本地数据
   const url = `${location.origin}/json/${name}/template.json`
   const data: IDESIGNJSON = await getTemplateJson(url)
   let TEMPLATE_JSON
-  TEMPLATE_JSON = data
+  TEMPLATE_JSON = cloneDeep(data)
+  console.log('TEMPLATE_JSON', TEMPLATE_JSON)
   TEMPLATE_JSON.ID = id as string
   TEMPLATE_JSON.NAME = name as string
   TEMPLATE_JSON.COMPONENTS.forEach((item) => {
     item.data = MODEL_DATA_JSON[item.model]
   })
+  setUuid() //设置uuid
   //修改Store数据
   changeResumeJsonData(TEMPLATE_JSON)
+  console.log('resumeJsonNewStore.value', resumeJsonNewStore.value)
 }
 
 //进入简历设计页面，数据初始化
 const localDataJson: any = localStorage.getItem('resumeDraft')
 if (localDataJson) {
-  let localDataObj = JSON.parse(localDataJson).id //根据id获取对应模板的本地数据
-  if (localDataObj) {
+  let tempLocalData = JSON.parse(localDataJson)[id as string] //根据id获取对应模板的本地数据
+  if (tempLocalData) {
     //更新模板数据
-    changeResumeJsonData(localDataJson)
-    console.log(resumeJsonNewStore.value)
+    changeResumeJsonData(tempLocalData)
   } else {
     //使用默认的模板数据
     resetStoreLocal()
   }
 } else {
   resetStoreLocal()
+}
+
+// 全局样式设置
+const globalStyleSetting = () => {
+  // 重置store选中模块
+  resetSelectModel()
+}
+
+// 重置简历数据
+const reset = () => {
+  resetStoreLocal()
+  // changeResumeJsonData(downloadResumeJson)
+  globalStyleSetting() // 重置选中模块
+  // 删除本地该条数据
+  let localData = localStorage.getItem('resumeDraft') // 本地缓存数据
+  if (localData) {
+    let allData = JSON.parse(localData)
+    if (Object.keys(allData).length > 1) {
+      if (allData[id as string]) {
+        delete allData[id as string] // 删除该条数据
+        localStorage.setItem('resumeDraft', JSON.stringify(allData))
+      }
+    } else {
+      localStorage.removeItem('resumeDraft')
+    }
+  }
+  ElMessage({
+    message: '重置成功!',
+    type: 'success',
+    center: true
+  })
+
+  setUuid()
 }
 
 //生成PDF

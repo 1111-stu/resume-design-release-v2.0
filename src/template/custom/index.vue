@@ -87,6 +87,7 @@ const emits = defineEmits(['changeHeight'])
 
 // 简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
+// console.log('简历JSON数据', resumeJsonNewStore.value);
 
 //左右两列布局
 const leftList = ref<IMATERIALITEM[]>([])

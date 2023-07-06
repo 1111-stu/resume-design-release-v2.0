@@ -160,7 +160,21 @@ const importJSON = () => {
 
 //重置所有设置
 const reset = () => {
-  emits('reset')
+  ElMessageBox.confirm('此操作将重置所有设置, 是否继续?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  })
+    .then(() => {
+      emits('reset')
+      draftTips.value = ''
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '已取消重置'
+      })
+    })
 }
 </script>
 

@@ -25,14 +25,12 @@ import { useRouter } from 'vue-router'
 import appStore from '@/store'
 import { openGlobalLoading } from '@/utils/common'
 
-const { resetResumeJson } = appStore.useResumeJsonNewStore
 const { resetSelectModel } = appStore.useSelectMaterialStore
 
 // 跳转到对应的模板设计页面
 const router = useRouter()
 const toDesign = (Item: ITempList) => {
   openGlobalLoading() // 等待动画层
-  resetResumeJson() // 重置json数据
   resetSelectModel() // 重置选中模块
   router.push({
     path: '/design',

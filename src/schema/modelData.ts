@@ -47,7 +47,7 @@ const MODEL_DATA_JSON: IMODELDATAJSON = {
       intendedCity: true,
       expectSalary: true,
       jobStatus: true,
-      jobSearchType: true
+      jobSearchType: false
     }
   },
   EDU_BACKGROUND: {

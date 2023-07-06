@@ -53,6 +53,9 @@ dependencies:
   vue-router:
     specifier: ^4.2.0
     version: registry.npmmirror.com/vue-router@4.2.2(vue@3.3.4)
+  vue-uuid:
+    specifier: ^3.0.0
+    version: registry.npmmirror.com/vue-uuid@3.0.0(vue@3.3.4)
   vuedraggable:
     specifier: ^4.1.0
     version: registry.npmmirror.com/vuedraggable@4.1.0(vue@3.3.4)
@@ -780,6 +783,12 @@ packages:
     name: '@types/semver'
     version: 7.5.0
     dev: true
+
+  registry.npmmirror.com/@types/uuid@8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/uuid/-/uuid-8.3.4.tgz}
+    name: '@types/uuid'
+    version: 8.3.4
+    dev: false
 
   registry.npmmirror.com/@types/web-bluetooth@0.0.16:
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.16.tgz}
@@ -4853,6 +4862,13 @@ packages:
     hasBin: true
     dev: false
 
+  registry.npmmirror.com/uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/uuid/-/uuid-8.3.2.tgz}
+    name: uuid
+    version: 8.3.2
+    hasBin: true
+    dev: false
+
   registry.npmmirror.com/validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz}
     name: validate-npm-package-license
@@ -5002,6 +5018,19 @@ packages:
       semver: registry.npmmirror.com/semver@7.5.1
       typescript: registry.npmmirror.com/typescript@5.0.4
     dev: true
+
+  registry.npmmirror.com/vue-uuid@3.0.0(vue@3.3.4):
+    resolution: {integrity: sha512-+5DP857xVmTHYd00dMC1c1gVg/nxG6+K4Lepojv9ckHt8w0fDpGc5gQCCttS9D+AkSkTJgb0cekidKjTWu5OQQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-uuid/-/vue-uuid-3.0.0.tgz}
+    id: registry.npmmirror.com/vue-uuid/3.0.0
+    name: vue-uuid
+    version: 3.0.0
+    peerDependencies:
+      vue: '>= 3.0.0'
+    dependencies:
+      '@types/uuid': registry.npmmirror.com/@types/uuid@8.3.4
+      uuid: registry.npmmirror.com/uuid@8.3.2
+      vue: registry.npmmirror.com/vue@3.3.4
+    dev: false
 
   registry.npmmirror.com/vue@3.3.4:
     resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue/-/vue-3.3.4.tgz}

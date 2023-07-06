@@ -1,5 +1,7 @@
+import { uuid } from 'vue-uuid'
 import moment from 'moment' // 日期处理
 import appStore from '@/store'
+
 // 获取assets静态资源
 export const getAssetsFile = (url: string) => {
   return new URL(`../assets/images/${url}`, import.meta.url).href
@@ -46,6 +48,11 @@ export const numberToText = (value: number) => {
   }
 }
 
+// 生成uuid
+export const getUuid = (): string => {
+  return uuid.v4();
+};
+
 // 时间格式转化：['2015-5', '2019-6'] -> 2015.05 - 2019.06
 export const formatDate = (dataArray: Array<string> | string): string => {
   if (Array.isArray(dataArray)) {
@@ -64,14 +71,14 @@ export const openGlobalLoading = () => {
 
 // 关闭全局loading
 export const closeGlobalLoading = () => {
-  const { changeLoadingStatus } = appStore.useLoadingStore;
-  changeLoadingStatus(false);
+  const { changeLoadingStatus } = appStore.useLoadingStore
+  changeLoadingStatus(false)
 }
 
 // 先开启等待层，然后指定时间关闭等待层
 export const openAndCloseLoadingByTime = (time: number) => {
-  openGlobalLoading();
+  openGlobalLoading()
   setTimeout(() => {
-    closeGlobalLoading();
-  }, time);
-};
+    closeGlobalLoading()
+  }, time)
+}
