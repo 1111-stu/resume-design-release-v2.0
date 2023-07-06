@@ -1,0 +1,68 @@
+{
+  "name": "51-resume-design",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "postinstall": "husky install"
+  },
+  "dependencies": {
+    "@codemirror/lang-javascript": "^6.0.2",
+    "@codemirror/lang-json": "^6.0.0",
+    "@codemirror/theme-one-dark": "^6.0.0",
+    "@element-plus/icons-vue": "^2.1.0",
+    "axios": "^1.4.0",
+    "c-scrollbar": "^1.0.2",
+    "colorpicker-v3": "^2.10.2",
+    "element-plus": "^2.3.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^1.4.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "pinia": "^2.0.36",
+    "vue": "^3.3.2",
+    "vue-router": "^4.2.0",
+    "vue-uuid": "^3.0.0",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@tsconfig/node18": "^2.0.1",
+    "@types/node": "^18.16.8",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "@vue/tsconfig": "^0.4.0",
+    "consola": "^3.2.2",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.11.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "typescript": "~5.0.4",
+    "unplugin-auto-import": "^0.16.4",
+    "unplugin-element-plus": "^0.7.1",
+    "unplugin-vue-components": "^0.25.1",
+    "vite": "^4.3.5",
+    "vite-plugin-style-import": "^2.0.0",
+    "vue-tsc": "^1.6.4"
+  },
+  "lint-staged": {
+    "*.{vue,js}": [
+      "npm run lint"
+    ]
+  },
+  "peerDependencies": {
+    "codemirror": "6.x"
+  }
+}
