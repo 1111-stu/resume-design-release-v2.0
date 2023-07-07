@@ -1,9 +1,9 @@
 declare module 'colorpicker-v3' {
-    import { App } from 'vue'
+  import { App } from 'vue'
 
-    const ColorPicker: {
-        install: (app: App) => void
-    }
+  const ColorPicker: {
+    install: (app: App) => void
+  }
 
-    export default ColorPicker
-} 
+  export default ColorPicker
+}

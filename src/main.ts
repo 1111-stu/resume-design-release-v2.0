@@ -10,7 +10,6 @@ import SvgIcon from './components/SvgIcon/SvgIcon.vue'
 // element-plus部分组件样式
 import 'element-plus/theme-chalk/src/message.scss'
 
-
 // 注册store
 import { createPinia } from 'pinia'
 import { registerStore } from '@/store'
