@@ -134,4 +134,4 @@ class Request {
 }
 
 export default Request
-export { RequestConfig, RequestInterceptors }
+export type { RequestConfig, RequestInterceptors }

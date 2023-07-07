@@ -66,6 +66,8 @@ import DesignNav from './components/DesignNav.vue'
 
 import { ref, nextTick, onMounted } from 'vue'
 import appStore from '@/store'
+// import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus/lib/components/message/index'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { CScrollbar } from 'c-scrollbar' // 滚动条

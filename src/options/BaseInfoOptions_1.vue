@@ -59,8 +59,8 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
-import type { UploadProps } from 'element-plus'
+import { ElMessage } from 'element-plus/lib/components/message/index'
+// import type { UploadProps } from 'element-plus'
 import CommonOptions from './CommonOptions.vue'
 import useDesignSelectModelItem from '@/hooks/material/useDesignSelectModelItem'
 defineOptions({ name: 'BASE_INFO_OPTIONS' })
@@ -74,7 +74,7 @@ let activeName = ref('style')
  */
 // 头像设置
 const imageUrl = ref(modelItem.data.avatar)
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile: any) => {
+const beforeAvatarUpload: any = (rawFile: any) => {
   if (rawFile.type !== 'image/jpeg') {
     ElMessage.error('只支持jpg格式的图片')
     return false
