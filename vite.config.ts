@@ -8,7 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // 按需导入组件库样式,主要对ElMessage，ElLoaindg等无法按需导入的做特殊处理
-import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
+// import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -18,19 +18,19 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
-    }),
-    createStyleImportPlugin({
-      resolves: [ElementPlusResolve()],
-      libs: [
-        {
-          libraryName: 'element-plus',
-          esModule: true,
-          resolveStyle: (name: string) => {
-            return `element-plus/theme-chalk/${name}.css`
-          }
-        }
-      ]
     })
+    // createStyleImportPlugin({
+    //   resolves: [ElementPlusResolve()],
+    //   libs: [
+    //     {
+    //       libraryName: 'element-plus',
+    //       esModule: true,
+    //       resolveStyle: (name: string) => {
+    //         return `element-plus/theme-chalk/${name}.css`
+    //       }
+    //     }
+    //   ]
+    // })
   ],
   css: {
     preprocessorOptions: {

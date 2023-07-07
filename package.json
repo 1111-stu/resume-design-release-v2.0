@@ -20,7 +20,7 @@
     "axios": "0.26.1",
     "c-scrollbar": "^1.0.2",
     "colorpicker-v3": "^2.10.2",
-    "element-plus": "^2.3.6",
+    "element-plus": "2.3.4",
     "html2canvas": "^1.4.1",
     "jspdf": "^1.4.1",
     "lodash": "^4.17.21",

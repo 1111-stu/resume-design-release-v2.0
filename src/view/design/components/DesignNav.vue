@@ -73,6 +73,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import moment from 'moment'
 import { debounce } from 'lodash'
+// import { ElMessage, ElMessageBox } from 'element-plus';
+import { ElMessage } from 'element-plus/lib/components/message/index'
+import { ElMessageBox } from 'element-plus/lib/components/message-box/index'
+import 'element-plus/theme-chalk/src/message-box.scss'
 
 // 简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
