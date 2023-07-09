@@ -71,7 +71,7 @@ import { ElMessage } from 'element-plus/lib/components/message/index'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { CScrollbar } from 'c-scrollbar' // 滚动条
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 
 import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'

@@ -39,7 +39,7 @@ import { reactive, ref, watch, type ComponentPublicInstance } from 'vue'
 import type { IMATERIALITEM } from '@/interface/material'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { useGetModelIndex } from '@/hooks/useGetModelIndex'
 
 const props = defineProps<{

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { IRESUMEJSON } from '@/interface/resume'
 import RESUME_JSON from '@/schema/resume'
 // import { IMATERIALITEM } from '@/interface/material';
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { ref } from 'vue'
 
 // 新的简历store

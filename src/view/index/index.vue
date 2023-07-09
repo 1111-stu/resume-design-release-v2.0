@@ -44,7 +44,7 @@ import ProjectIntroduce from './components/ProjectIntroduce.vue'
 import TemplateSelect from './components/TemplateSelect.vue'
 import CustomTemplate from './components/CustomTemplate.vue'
 import FooterCom from '@/components/FooterCom/FooterCom.vue'
-import { throttle } from 'lodash'
+import { throttle } from 'lodash-es'
 import { useRouter } from 'vue-router'
 
 // 监听元素滚动

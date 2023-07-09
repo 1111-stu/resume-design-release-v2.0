@@ -80,7 +80,7 @@ import modelBox from './modelBox.vue'
 import MaterialComponents from '@/utils/registerMaterialCom' // 所有物料组件
 import { useGetModelIndex } from '@/hooks/useGetModelIndex'
 import { useDeleteModel } from '@/hooks/useDeleteModel'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 
 defineOptions({ name: 'custom' })
 const emits = defineEmits(['changeHeight'])

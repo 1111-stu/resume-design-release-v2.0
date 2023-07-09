@@ -72,7 +72,7 @@ import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import moment from 'moment'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 // import { ElMessage, ElMessageBox } from 'element-plus';
 import { ElMessage } from 'element-plus/lib/components/message/index'
 import { ElMessageBox } from 'element-plus/lib/components/message-box/index'

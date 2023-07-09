@@ -47,14 +47,14 @@
       </el-popover>
 
       <a
-        href="https://gitee.com/sharemore52/resume-design"
+        href="https://github.com/1111-stu/resume-design-release-v2.0"
         target="_blank"
         rel="noopener noreferrer"
       >
         <svg-icon icon-name="icon-gitee-fill-round" :color="iconColor" size="31px"></svg-icon>
       </a>
       <a
-        href="https://github.com/Hacker233/resume-design"
+        href="https://github.com/1111-stu/resume-design-release-v2.0"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -90,14 +90,17 @@ withDefaults(defineProps<IBgcColor>(), {
   position: fixed;
   top: 0;
   transition: all 0.3s;
+
   .logo {
     height: 100%;
     display: flex;
     align-items: center;
+
     img {
       width: 80px;
       height: 80px;
     }
+
     span {
       letter-spacing: 4px;
       font-size: 22px;
@@ -106,6 +109,7 @@ withDefaults(defineProps<IBgcColor>(), {
       color: v-bind('fontColor');
     }
   }
+
   .center {
     flex: 1;
     height: 100%;
@@ -113,40 +117,49 @@ withDefaults(defineProps<IBgcColor>(), {
     justify-content: center;
     align-items: center;
   }
+
   .right {
     display: flex;
     align-items: center;
+
     .contact-me {
       cursor: pointer;
       margin-right: 15px;
       font-size: 14px;
       color: v-bind('iconColor');
     }
+
     .svg-icon {
       cursor: pointer;
     }
+
     & :first-child {
       margin-left: 15px;
     }
   }
 }
+
 .vx-box {
   .vx-title {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     h1 {
       font-size: 14px;
     }
+
     p {
       font-size: 12px;
       color: rgb(105, 105, 105);
       margin: 6px 0;
     }
   }
+
   .vx-img {
     width: 100%;
     overflow: hidden;
+
     .bgc-img {
       width: 100%;
     }

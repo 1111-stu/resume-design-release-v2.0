@@ -6,32 +6,67 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// 图片压缩
+import viteImagemin from 'vite-plugin-imagemin'
 
-// 按需导入组件库样式,主要对ElMessage，ElLoaindg等无法按需导入的做特殊处理
-// import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
+// 打包体积分析,打包完成会生成一个report.html文件
+import { visualizer } from 'rollup-plugin-visualizer'
+
+// 预渲染
+import vitePrerender from 'vite-plugin-prerender'
+import path from 'path'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    // 按需导入element plus组件
     AutoImport({
       resolvers: [ElementPlusResolver()]
     }),
+    // 按需导入element plus 自定义主题。
     Components({
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
-    })
-    // createStyleImportPlugin({
-    //   resolves: [ElementPlusResolve()],
-    //   libs: [
-    //     {
-    //       libraryName: 'element-plus',
-    //       esModule: true,
-    //       resolveStyle: (name: string) => {
-    //         return `element-plus/theme-chalk/${name}.css`
-    //       }
-    //     }
-    //   ]
-    // })
+    }),
+    // 打包体积分析
+    visualizer({ open: true }),
+    // 图片资源压缩
+    viteImagemin({
+      gifsicle: {
+        optimizationLevel: 7,
+        interlaced: false
+      },
+      optipng: {
+        optimizationLevel: 7
+      },
+      mozjpeg: {
+        quality: 20
+      },
+      pngquant: {
+        quality: [0.8, 0.9],
+        speed: 4
+      },
+      svgo: {
+        plugins: [
+          {
+            name: 'removeViewBox'
+          },
+          {
+            name: 'removeEmptyAttrs',
+            active: false
+          }
+        ]
+      }
+    }),
+    // 预渲染
+    vitePrerender({
+      // Required - The path to the vite-outputted app to prerender.
+      staticDir: path.join(__dirname, 'dist'),
+      // Required - Routes to render.
+      routes: ['/', '/design', '/chat'],
+    }),
   ],
+  // element plus 自定义主题
   css: {
     preprocessorOptions: {
       scss: {
@@ -39,9 +74,33 @@ export default defineConfig({
       }
     }
   },
+  // 路径别名
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // 最小化拆分包
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+          }
+        },
+        chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+        entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+        assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
+      }
+    },
+
+    // 清除console和debugger
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
   }
 })
