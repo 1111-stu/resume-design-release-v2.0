@@ -71,14 +71,14 @@ import { ElMessage } from 'element-plus/lib/components/message/index'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { CScrollbar } from 'c-scrollbar' // 滚动条
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash'
 
 import { getTemplateJson } from '@/http/api/getTemplateJson'
 import type { IDESIGNJSON } from '@/interface/design'
 import MODEL_DATA_JSON from '@/schema/modelData'
 import optionsComponents from '@/utils/registerMaterialOptionsCom'
 import downLoadPDF from '@/utils/downLoadPDF'
-import { closeGlobalLoading } from '@/utils/common'
+import { closeGlobalLoading, openGlobalLoading } from '@/utils/common'
 
 import GlobalStyleOptions from '@/options/GlobalStyleOptions.vue'
 
@@ -89,9 +89,9 @@ const { setUuid } = appStore.useUuidStore
 const { cptOptionsName, cptKeyId } = storeToRefs(appStore.useSelectMaterialStore) //选中模块数据配置项
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore) // store里的模板数据
 
+openGlobalLoading()
 //节点渲染完成，关闭全局等待层
 onMounted(async () => {
-  console.log('refreshUuid.value', refreshUuid.value)
   await nextTick()
   closeGlobalLoading()
 })
@@ -107,7 +107,6 @@ const resetStoreLocal = async () => {
   const data: IDESIGNJSON = await getTemplateJson(url)
   let TEMPLATE_JSON
   TEMPLATE_JSON = cloneDeep(data)
-  console.log('TEMPLATE_JSON', TEMPLATE_JSON)
   TEMPLATE_JSON.ID = id as string
   TEMPLATE_JSON.NAME = name as string
   TEMPLATE_JSON.COMPONENTS.forEach((item) => {
@@ -116,7 +115,6 @@ const resetStoreLocal = async () => {
   setUuid() //设置uuid
   //修改Store数据
   changeResumeJsonData(TEMPLATE_JSON)
-  console.log('resumeJsonNewStore.value', resumeJsonNewStore.value)
 }
 
 //进入简历设计页面，数据初始化

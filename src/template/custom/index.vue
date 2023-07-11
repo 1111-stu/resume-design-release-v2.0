@@ -80,14 +80,12 @@ import modelBox from './modelBox.vue'
 import MaterialComponents from '@/utils/registerMaterialCom' // 所有物料组件
 import { useGetModelIndex } from '@/hooks/useGetModelIndex'
 import { useDeleteModel } from '@/hooks/useDeleteModel'
-import { cloneDeep } from 'lodash-es'
-
+import { cloneDeep } from 'lodash'
 defineOptions({ name: 'custom' })
 const emits = defineEmits(['changeHeight'])
 
 // 简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
-// console.log('简历JSON数据', resumeJsonNewStore.value);
 
 //左右两列布局
 const leftList = ref<IMATERIALITEM[]>([])

@@ -1,4 +1,4 @@
 declare module 'jspdf' {
-  import { JsPDF } from 'jspdf'
-  export { JsPDF }
+  const jsPDF: any;
+  export default jsPDF;
 }

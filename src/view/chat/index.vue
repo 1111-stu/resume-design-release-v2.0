@@ -114,10 +114,7 @@ const scrollToBottom = () => {
 
 //清除记录
 const clearRenderList = () => {
-  console.log('clear')
-  // randerList = []
   randerList.splice(0, randerList.length)
-  console.log(randerList)
 }
 </script>
 <style lang="scss" scoped>

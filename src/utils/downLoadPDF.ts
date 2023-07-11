@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas'
-import { JsPDF } from 'jspdf'
+import JsPDF from 'jspdf'
 
 // 使用html2canvas+JsPDF实现导出PDF
 const downloadPDF = (
@@ -66,8 +66,6 @@ const downloadPDF = (
     }
     if (preview) {
       const dataUrl = pdf.output('datauristring')
-
-      console.log('pdf', pdf.output('datauristring'))
       callback(dataUrl)
       return
     }

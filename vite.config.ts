@@ -16,6 +16,15 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import vitePrerender from 'vite-plugin-prerender'
 import path from 'path'
 
+// 去除log和debuugger
+import externalGlobals from 'rollup-plugin-external-globals';
+
+// 打包时不引入外部模块，使用cdn引入
+const globals = externalGlobals({
+  lodash: 'lodash',
+  jspdf: 'jspdf',
+  html2canvas: 'html2canvas'
+});
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -92,10 +101,14 @@ export default defineConfig({
         chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
         entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
         assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
-      }
-    },
+      },
 
+      //打包时不引入外部模块，使用cdn引入
+      external: ['lodash', 'jspdf', 'html2canvas'],
+      plugins: [globals],
+    },
     // 清除console和debugger
+    minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,

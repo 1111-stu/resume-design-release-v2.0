@@ -42,7 +42,6 @@ import useDesignSelectModelItem from '@/hooks/material/useDesignSelectModelItem'
 defineOptions({ name: 'CUSTOM_OPTIONS_1' })
 // 选中的模块
 const { modelItem } = useDesignSelectModelItem()
-console.log('点击姓名与简介', modelItem)
 
 let activeName = ref('style')
 
