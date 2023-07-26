@@ -1,7 +1,7 @@
 <template>
   <div class="template-card-box" @mouseover="mouseover" @mouseleave="mouseleave">
     <!-- 图片 -->
-    <img :src="getAssetsFile(cardData.preview)" alt="" />
+    <img :src="getAssetsFile(cardData.preview)" alt="" loading="lazy" />
     <!-- 遮罩层 -->
     <div v-show="isLayer" class="mask-layer">
       <div v-if="cardData.name !== 'custom'" class="preview-icon" title="预览" @click="previewImg">
@@ -11,7 +11,7 @@
     </div>
     <!-- 预览图片 -->
     <PreviewImage v-show="dialogVisble" @close="close">
-      <img :src="getAssetsFile(cardData.preview)" alt="" class="preview-img" />
+      <img :src="getAssetsFile(cardData.preview)" alt="" class="preview-img" loading="lazy" />
     </PreviewImage>
   </div>
 </template>
