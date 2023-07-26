@@ -76,6 +76,7 @@ import { debounce } from 'lodash'
 import { ElMessage } from 'element-plus/lib/components/message/index'
 import { ElMessageBox } from 'element-plus/lib/components/message-box/index'
 import 'element-plus/theme-chalk/src/message-box.scss'
+import { saveAs } from 'file-saver'
 
 // 简历数据
 const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore)
@@ -153,6 +154,12 @@ const generateReport = () => {
 
 //导出为json数据
 const exportJSON = () => {
+  //将json数据转换为blob对象
+  const blob = new Blob([JSON.stringify(resumeJsonNewStore.value)], {
+    type: 'application/json;charset=utf-8'
+  })
+  //保存blob对象为json文件
+  saveAs(blob, `${resumeJsonNewStore.value.TITLE}.json`)
   emits('exportJSON')
 }
 
