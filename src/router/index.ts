@@ -4,6 +4,7 @@ const Design = () => import('@/view/design/index.vue')
 const Index = () => import('@/view/index/index.vue')
 const Custom = () => import('@/view/custom/index.vue')
 const Chat = () => import('@/view/chat/index.vue')
+const Aarticle = () => import('@/view/article/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +46,16 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true
     },
     component: Chat
+  },
+  {
+    path: '/article',
+    name: 'Aarticle',
+    meta: {
+     title: '文章',
+     keepAlive: true,
+     requireLogin: true
+    },
+    component: Aarticle
   }
 ]
 // const routerHistory = createWebHistory('/');

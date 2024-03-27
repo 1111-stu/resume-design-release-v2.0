@@ -21,6 +21,11 @@ import '@/assets/iconfont/iconfont.js'
 import ColorPicker from 'colorpicker-v3' // 注册组件
 import 'colorpicker-v3/style.css' // 引入样式文件
 
+// unocss配置
+
+// 导入tailwindcss
+import 'tailwindcss/tailwind.css'
+
 const app = createApp(App)
 
 //注册使用pinia状态库

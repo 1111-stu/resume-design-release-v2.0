@@ -8,7 +8,6 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // 图片压缩
 import viteImagemin from 'vite-plugin-imagemin'
-
 // 打包体积分析,打包完成会生成一个report.html文件
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -19,12 +18,17 @@ import path from 'path'
 // 去除log和debuugger
 import externalGlobals from 'rollup-plugin-external-globals'
 
+// import tailwindcss from 'tailwindcss'
+// import autoprefixer from 'autoprefixer'
+
 // 打包时不引入外部模块，使用cdn引入
 const globals = externalGlobals({
   lodash: 'lodash',
   jspdf: 'jspdf',
   html2canvas: 'html2canvas'
 })
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -73,7 +77,7 @@ export default defineConfig({
       staticDir: path.join(__dirname, 'dist'),
       // Required - Routes to render.
       routes: ['/', '/design', '/chat']
-    })
+    }),
   ],
   // element plus 自定义主题
   css: {
@@ -81,7 +85,10 @@ export default defineConfig({
       scss: {
         additionalData: '@use "@/style/global.scss" as *;'
       }
-    }
+    },
+    // postcss: {
+    //   plugins:[tailwindcss,autoprefixer]
+    // }
   },
   // 路径别名
   resolve: {
