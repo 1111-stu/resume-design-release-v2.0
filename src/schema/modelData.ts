@@ -12,13 +12,13 @@ const MODEL_DATA_JSON: IMODELDATAJSON = {
     model: 'BASE_INFO',
     show: true,
     title: '基本资料',
-    name: '小猪课堂',
+    name: '大雄',
     age: 25,
-    address: '四川成都', // 所在地址
+    address: '广东深圳', // 所在地址
     avatar: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', // 头像地址
     workService: 3, // 工作年限
-    phoneNumber: '028-1234321', // 联系电话
-    email: '12322233@qq.com', // 邮箱
+    phoneNumber: '028-2322321', // 联系电话
+    email: '2981451773@qq.com', // 邮箱
     abstract: '我是一个没有感情的工作机器', // 简介
     degree: '本科',
     isShow: {
@@ -290,7 +290,7 @@ const MODEL_DATA_JSON: IMODELDATAJSON = {
     model: 'CUSTOM_1',
     show: true,
     title: '姓名简介',
-    name: '小猪课堂',
+    name: '大雄',
     abstract: '用一句话来概括一下自己把！',
     isShow: {
       abstract: true,

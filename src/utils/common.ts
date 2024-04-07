@@ -82,3 +82,7 @@ export const openAndCloseLoadingByTime = (time: number) => {
     closeGlobalLoading()
   }, time)
 }
+// 深拷贝
+export const cloneDeep = (orginVal:any) => {
+  return JSON.parse(JSON.stringify(orginVal))
+}

@@ -45,7 +45,6 @@ import TemplateSelect from './components/TemplateSelect.vue'
 import CustomTemplate from './components/CustomTemplate.vue'
 import FooterCom from '@/components/FooterCom/FooterCom.vue'
 import { throttle } from 'lodash'
-import { useRouter } from 'vue-router'
 
 // 监听元素滚动
 onMounted(() => {
@@ -86,9 +85,22 @@ const scrollToCustom = () => {
 }
 
 //点击AI助手，跳转到聊天页面
-const router = useRouter()
 const toChatPage = () => {
-  router.push('/chat')
+  let url = 'https://share.fastgpt.in/chat/share?shareId=p7r8bi9fc4j38gn7hvqyntbl'
+  let id = 'new_a'
+  createSuperLabel(url, id)
+}
+// 创建超链接，不会被拦截
+const createSuperLabel = (url: string, id: string) => {
+  let a = document.createElement('a')
+  a.setAttribute('href', url)
+  a.setAttribute('target', '_blank')
+  a.setAttribute('id', id)
+  // 防止反复添加
+  if (!document.getElementById(id)) {
+    document.body.appendChild(a)
+  }
+  a.click()
 }
 </script>
 

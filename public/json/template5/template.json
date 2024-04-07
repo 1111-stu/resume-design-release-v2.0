@@ -37,7 +37,7 @@
                 "model": "BASE_INFO",
                 "show": true,
                 "title": "基本资料",
-                "name": "小猪课堂",
+                "name": "大雄",
                 "age": 25,
                 "address": "四川成都",
                 "avatar": "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -148,7 +148,7 @@
                 "model": "CUSTOM_1",
                 "show": true,
                 "title": "姓名简介",
-                "name": "小猪课堂",
+                "name": "大雄",
                 "abstract": "用一句话来概括一下自己把！",
                 "isShow": {
                     "abstract": true,

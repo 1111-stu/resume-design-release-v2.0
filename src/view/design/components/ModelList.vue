@@ -73,6 +73,9 @@ const selectModel = (item: any) => {
 }
 
 //选中模块
+// watch(resumeJsonNewStore, (newVal) => {
+//   resumeJsonNewStore.value = newVal
+// })
 </script>
 
 <style lang="scss" scoped>

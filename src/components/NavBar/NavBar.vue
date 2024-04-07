@@ -8,7 +8,15 @@
     <div class="center"></div>
     <!-- GitHub -->
     <div class="right">
-      <el-popover :width="200" trigger="click" teleported>
+      <div>
+        <p
+          class="text-l text-white flex h-12 mr-2 flex-col justify-center bg-black"
+          @click="toArticleEdit"
+        >
+          文章发布
+        </p>
+      </div>
+      <el-popover :width="200" trigger="hover" teleported>
         <template #reference>
           <span class="contact-me">
             <svg-icon icon-name="icon-lianxiwomen1" :color="iconColor" size="16px"></svg-icon>
@@ -27,7 +35,7 @@
         </div>
       </el-popover>
 
-      <el-popover :width="200" trigger="click" teleported>
+      <el-popover :width="200" trigger="hover" teleported>
         <template #reference>
           <span class="contact-me">
             <svg-icon icon-name="icon-lianxiwomen1" :color="iconColor" size="16px"></svg-icon>
@@ -64,6 +72,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 interface IBgcColor {
   bgColor?: string
   fontColor?: string
@@ -74,6 +83,12 @@ withDefaults(defineProps<IBgcColor>(), {
   fontColor: '',
   iconColor: '#fff'
 })
+
+// 跳转到路由页面
+const router = useRouter()
+const toArticleEdit = () => {
+  router.push('/article')
+}
 </script>
 <style lang="scss" scoped>
 .nav-bar-box {

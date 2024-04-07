@@ -39,7 +39,6 @@ import { reactive, ref, watch, type ComponentPublicInstance } from 'vue'
 import type { IMATERIALITEM } from '@/interface/material'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
-import cloneDeep from 'lodash'
 import { useGetModelIndex } from '@/hooks/useGetModelIndex'
 
 const props = defineProps<{
@@ -106,6 +105,7 @@ const selectModel = () => {
 // 复制模块
 const addModel = (item: IMATERIALITEM) => {
   if (resumeJsonNewStore.value.LAYOUT === 'classical') {
+    console.log('item', item)
     classicalCopyModel(item, item.keyId)
   } else {
     //left-right布局是分成两个list去渲染，分发出去custom组件处理
@@ -128,11 +128,14 @@ const deleteModel = (item: IMATERIALITEM) => {
 // 传统布局-模块复制
 const classicalCopyModel = (modelinfo: IMATERIALITEM, modelId: string) => {
   //拷贝选中模块的数据
-  let copyModel = cloneDeep(modelinfo)
+  let copyModel = JSON.parse(JSON.stringify(modelinfo))
   //获取插入位置
   const index = useGetModelIndex(resumeJsonNewStore.value.COMPONENTS, modelId)
   // 拼接更新
   resumeJsonNewStore.value.COMPONENTS.splice(index, 0, copyModel)
+
+  // 打印更新后的数据
+  console.log('resumeDate', resumeJsonNewStore.value.COMPONENTS)
 }
 
 //传统布局-模块删除

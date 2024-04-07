@@ -82,7 +82,7 @@ const { degreeList } = useDegreeList() // 学历列表
 const addEdu = (): void => {
   modelItem.data.LIST.push({
     date: ['2015-5', '2019-6'],
-    schoolName: '小猪大学', // 学校名称
+    schoolName: '广东大学', // 学校名称
     specialized: '通信工程', // 专业
     degree: '本科', // 学历
     majorCourse: '主修计算机技术、Java、c++等等' // 主修课程
